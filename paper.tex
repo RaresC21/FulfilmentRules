@@ -1,0 +1,1129 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Latex template for Production and Operations Management (POM) Journal
+%% The poms1.cls is required class file
+
+%% Authors of this template: Emre M. Demirezen, Subodha Kumar, and Rakesh Mallipeddi
+%For queries: pom.latex@gmail.com
+%% Version. 1.0, January 2021
+%We acknowledge INFORMS for allowing us to use a few portions of their template files.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[poms,final,blindrev]{poms1_V1} % Use this for blind submissions
+% \documentclass[poms,final,nonblindrev]{poms1_V1} % Use this for listing out authors' information submissions
+
+\OneAndAHalfSpacedXI % % default line spacing !!!!!!!!!!!!!!!!!!!!!!!
+%Manuscript length 32pages
+
+
+
+% If hyperref is used, dvi-to-ps driver of choice must be declared as
+%   an additional option to the \documentclass. For example
+%\documentclass[dvips,poms]{poms1}      % if dvips is used
+%\documentclass[dvipsone,poms]{poms1}   % if dvipsone is used, etc.
+
+%%% POMS uses footnotes. If want to use endnotes, remove a percent sign before
+%%% the \theendnotes command. This template does show how to use them.
+%\usepackage{endnotes}%; manuscript no.
+%\let\footnote=\endnote
+%\let\enotesize=\normalsize
+%\def\notesname{Endnotes}%
+%\def\makeenmark{$^{\theenmark}$}
+%\def\enoteformat{\rightskip0pt\leftskip0pt\parindent=1.75em
+ % \leavevmode\llap{\theenmark.\enskip}}
+
+% Private macros here (check that there is no clash with the style)
+
+% Natbib setup for author-year style
+ %\usepackage[center]{caption}
+
+\usepackage{graphicx}
+\usepackage{subfigure, epsfig}
+\usepackage{natbib}
+\usepackage{soul}
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+% \usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{bbm}
+
+\usepackage{makecell}
+
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\E}[0]{\mathbb{E}}
+\newcommand{\conj}[1]{ {\overline{#1}} }
+\newcommand{\comp}[1]{ {\overline{#1}} }
+\newcommand{\inprod}[1]{\langle#1\rangle}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\horline}{\noindent\rule{\linewidth}{0.4pt}}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\x}[0]{{\mathbf{x}}}
+\newcommand{\q}[0]{{\mathbf{q}}}
+\newcommand{\D}[0]{{\mathbf{D}}}
+\newcommand{\dd}[0]{{\mathbf{d}}}
+\renewcommand{\d}[0]{{\mathbf{d}}}
+
+ \bibpunct[, ]{(}{)}{,}{a}{}{,}%
+ \def\bibfont{\small}%
+ \def\bibsep{\smallskipamount}%
+ \def\bibhang{24pt}%
+ \def\newblock{\ }%
+ \def\BIBand{and}%
+
+%% Setup of theorem styles. Outcomment only one.
+%% Preferred default is the first option.
+\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
+%\TheoremsNumberedByChapter  % (Theorem 1.1, Lema 1.1, Theorem 1.2)
+\ECRepeatTheorems
+\newtheorem{observation}{Observation}
+%\newtheorem{proposition}{Proposition}
+%% Setup of the equation numbering system. Outcomment only one.
+%% Preferred default is the first option.
+\EquationsNumberedThrough    % Default: (1), (2), ...
+%\EquationsNumberedBySection % (1.1), (1.2), ...
+
+% In the reviewing and copyediting stage enter the manuscript number.
+%\MANUSCRIPTNO{} % When the article is logged in and DOI assigned to it,
+                 %   this manuscript number is no longer necessary
+
+%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%
+
+% Outcomment only when entries are known. Otherwise leave as is and
+%   default values will be used.
+%\setcounter{page}{1}
+%\VOLUME{00}%
+%\NO{0}%
+%\MONTH{Xxxxx}% (month or a similar seasonal id)
+%\YEAR{0000}% e.g., 2005
+%\FIRSTPAGE{000}%
+%\LASTPAGE{000}%
+%\SHORTYEAR{00}% shortened year (two-digit)
+%\ISSUE{0000} %
+%\LONGFIRSTPAGE{0001} %
+%\DOI{10.1287/xxxx.0000.0000}%
+
+% Author's names for the running heads
+% Sample depending on the number of authors;
+% \RUNAUTHOR{Jones}
+% \RUNAUTHOR{Jones and Wilson}
+% \RUNAUTHOR{Jones, Miller, and Wilson}
+% \RUNAUTHOR{Jones et al.} % for four or more authors
+% Enter authors following the given pattern:
+\RUNAUTHOR{Doe and Doe} 
+
+
+% Enter the (shortened) title:
+\RUNTITLE{POM Template}
+
+% Full title. Sample:
+\TITLE{Fulfillment-Aware Learning in Inventory Allocation}
+
+% Block of authors and their affiliations starts here:
+% NOTE: Authors with same affiliation, if the order of authors allows,
+%   should be entered in ONE field, separated by a comma.
+%   \EMAIL field can be repeated if more than one author
+\ARTICLEAUTHORS{%
+\AUTHOR{John Doe}
+\AFF{Department of Operations Management, Operations University, \EMAIL{jdoe@operations.edu}} %, \URL{}}
+\AUTHOR{Jane Doe}
+\AFF{Institute for Supply Chain Management, University of Management \EMAIL{jdoe@iscm.edu}}
+% Enter all authors
+} % end of the block
+
+\ABSTRACT{%
+We consider the problem of an %fashion 
+e-retailer who needs to allocate inventory across a network of warehouses with cross-fulfillment. The objective is to minimize overall cost consisting of shipping costs, as well as holding and lost sale costs. 
+Online retailers increasingly face the problem of optimizing inventory allocation in large networks of warehouses where the demand is stochastic and there is fulfillment flexibility. Optimizing inventory in such networks is an intractable problem thus resulting in the use of heuristics even when the demand distribution is known. 
+We consider the data-driven context-dependent demand setting where one needs to make a forecast of future demand based off of feature information. We present an end-to-end method using machine learning in order to learn decisions directly from the data by minimizing the objective cost, without the need to estimate the demand distribution.
+The loss function of the learning problem is the result of a complex optimization problem computing the optimal fulfillment of demand depending on the output stocking allocation of the machine learning model.
+We introduce an approximation to this complex objective in the form of fulfillment rules. The fulfilment rules framework is important as it gives rise to a tractable convex formulation of the fulfillment problem, and efficiently provide near-optimal  solutions to the problem.  We formulate a learning algorithm that easily incorporates these rules into the loss function. We show this approach outperforms, by up to 20\% lower cost, methods that predict demand independently of the problem structure and only subsequently make inventory and fulfillment decisions.  
+}%
+
+\KEYWORDS{inventory optimization, cross-fulfilment, end-to-end learning}
+%Use this for final submission
+%\HISTORY{This paper was first submitted on January 1, 2021 and has been with the authors for 3 months for 2 revisions.}
+
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Samples of sectioning (and labeling) in POMS
+% NOTE: (1) \section and \subsection do NOT end with a period
+%       (2) \subsubsection and lower need end punctuation
+%       (3) capitalization is as shown (title style).
+%
+%\section{Introduction.}\label{intro} %%1.
+%\subsection{Duality and the Classical EOQ Problem.}\label{class-EOQ} %% 1.1.
+%\subsection{Outline.}\label{outline1} %% 1.2.
+%\subsubsection{Cyclic Schedules for the General Deterministic SMDP.}
+%  \label{cyclic-schedules} %% 1.2.1
+%\section{Problem Description.}\label{problemdescription} %% 2.
+
+% Text of your paper here
+\section{Introduction}\label{sec1}
+E-Commerce is growing at an unprecedented rate all around the globe as well as in the U.S. In 2024, e-commerce sales have reached 6 trillion dollars and account for around 20\% percent of all retail sales in the United States and were forecast to rise by more than 8\% by 2028.
+This tremendous growth has motivated many big retailers to invest heavily in e-commerce by opening numerous facilities across the country in order to reduce fulfillment cost and speed of delivery.  In order to avoid high fulfillment costs it is preferable to ship from warehouses near the customers thus minimizing the shipping costs. When this is not possible due to inventory stockouts, retailers face the dilemma of losing the sale or fulfilling it with a potentially higher cost from a distant location. 
+
+The goal of the e-retailer is to maximize profit margins by better managing overall cost.  For example, a single-location single-product inventory allocation problem can be modeled using the classical newsvendor problem that was introduced by \cite{arrow1951optimal} and has been studied extensively ever since. The newsvendor solution is a critical quantile of the demand distribution and it is the optimal inventory level for a single-location network. These quantiles optimally balance the cost between storing excess products and losing sales due to inventory shortages. 
+
+An immediate way to apply this strategy to more complex networks is to solve the single warehouse problem for each location separately. However, the disadvantage of such a strategy is that the retailer does not consider the possibility of cross-fulfilling the demand among the warehouses. Allowing for a flexible fulfillment policy in the multi-warehouse setting may result in a reduction of the overall inventory in the network and the holding costs associated with it, without impacting the availability of inventory. Such network planning models that incorporate fulfillment flexibility are essential for leveraging the efficiencies of cross-location inventory pooling. 
+
+Moreover, the demand is often unknown and changes over time and depends on additional observable features such as seasonality, holidays, and competitors. While one is given historical observations of features and corresponding demand, one must then forecast future demand and make a decision accordingly. A traditional pipeline is to first forecast demand, and subsequently make an inventory allocation decision. However, learning independently of the downstream optimization problem of allocation leaves potential benefits on the table (indeed, as we will see later, two predictions with the same mean-squared error in predicting ground truth demand can result in vastly different cost in terms of allocation and fulfillment)
+% . \textcolor{red}{This last statement requires some additional justification. Alternatively, end with previous sentence and include in brackets as we will see in this paper as this may not be what the reader is aware of}
+
+In this paper, we propose a method to align the learning stage with the subsequent inventory optimization task to reduce the overall costs associated with holding inventory, fulfilling inventory as well as lost sales. The state-of-the-art methods of performing this alignment between learning and optimizing come from the stream of \emph{end-to-end} learning or \emph{joint prediction and optimization}. For example, \cite{cameron2021perils} shows that indeed using the downstream task-based objective is often better than using only intermediate task objectives, such as prediction error. However, these methods are generally computationally expensive: to evaluate the loss of a forecast, one is required to solve a complex linear optimization problem (the fulfilment problem). To deal with this, we introduce the notion of \emph{fulfillment rules} which approximate the optimal fulfillment, are fast to compute, and whose gradients can be easily computed as well. 
+
+One of the main advantages of a two-stage approach is in its versatility to be applied to any downstream optimization. This correspondingly is a limitation of existing end-to-end methods as they train a model specifically for a single downstream task. Unfortunately, this is common to change in practice. In our setting, the specific holding and lost-sale costs as well cross-fulfillment costs can often change.  We propose a simple to implement method to add robustness to our fulfillment rule approximation scheme that allows us to train a model end-to-end while still being generic enough to be used for a variety of problem parameters.
+
+\noindent In short, we present the following contributions:
+
+\begin{enumerate}
+    \item \emph{Fulfillment rule paradigm.} To tackle the complexity of the inventory allocation problem we introduce {fulfillment rules}, a predetermined set of rules that specify the priority of shipments across the network and discuss how we can generate these rules given fulfillment costs or other metrics such as travel time. Using rules in the inventory optimization problem, we can simplify the two-stage problem to a single-stage tractable formulation. 
+    \item \emph{Tractable algorithm given a demand distribution.} We show the solution to the formulation we propose can be expressed as a system of equations inspiring the creation of a Fulfillment Rules Algorithm (FRA). For the two-location problem the rules are optimal and we present a closed form solution depending on specific quantiles of the demand distribution and the holding, backorder, and cross-fulfillment problem parameters.
+    \item \emph{Joint prediction and optimization.} We also consider a scenario in which the historical observations of demand can vary and be influenced by contextual factors. In particular, we present an \emph{end-to-end} method of learning the optimal inventory allocations by training a model whose objective explicitly minimizes total cost as approximated by deterministic fulfillment rules instead of an intermediate criterion such as prediction error.
+    \item \emph{Robustness to uncertain holding and overage costs.} We consider the case where not only the demand is uncertain, but also the holding and lost-sale costs may vary. Using fulfillment rules, we amend the end-to-end approach in order to make decisions which are robust to worst-case changes in these costs. This allows to use the same model without having to constantly retrain one for every change in supply chain parameters.
+    \item \emph{Computations:} Finally, we present computational experiments on all of the above methods and settings. In particular, experiments showing (1) our fulfilment rule approximation is near optimal under full-information settings (when given full knowledge of the demand distribution) for a variety of networks of various sizes; (2) applying the fulfilment rules framework in an end-to-end setting and showing up to 20\% improvements over two-stage methods; (3) finally, showing our robust version of the method outperforms the both the two-stage and end-to-end method when faced with changes to supply chain parameters.
+\end{enumerate} 
+
+\subsection{Literature Review}
+
+There are several streams of literature related to the research in this paper. First, the paper generally connects with the literature on inventory management, and more specifically, inventory management in a network of warehouses with cross fulfillment. Second, it also connects with the topic of fulfillment optimization since it introduces the novel concept of fulfillment rules in order to get a tractable solution to the two-stage problem of inventory optimization and fulfillment problem. Finally, it also connects with the topic of data-driven product allocation. 
+
+
+The literature on inventory optimization problems is very extensive. Our approach is inspired the classical newsvendor problem as introduced by \cite{arrow1951optimal}. In this setting with a single location, the objective is to minimize the expected underage and overage costs or maximize the expected profit when the demand is uncertain. Assuming a known distribution, the optimal solution is a function of the holding and lost-sale costs.
+
+Since the introduction of the Newsvendor problem, many extensions to the base model have been analyzed. For a comprehensive review, we refer the readers to the review paper by \cite{qin2011newsvendor} as well as the references therein. 
+For example, \cite{perakis2020leveraging} develop an algorithm to optimize inventory allocation under inventory and capacity constraints in a multi-warehouse multi-products setting. %~\cite{harsha2015data} develop a data-driven approach to price-setting extension of the  newsvendor problem. 
+However, these  papers are using the newsvendor formulation but do not  consider cross fulfillment as a way to satisfy demand.
+There are two aspects to the supply chain management problem we study, the first is to decide on the amount of inventory to allocate ahead of the demand realization, and the second is to decide how to fulfill the demand after it is realized. The latter problem is an optimization problem in-itself as the demand can be fulfilled from any location. 
+
+\paragraph{Pooling:} \cite{eppen1979note} discuss centralization and pooling of demand in a newsvendor network and compare decentralized systems against centralized while varying demand correlation. Furthermore, \cite{zhao2005inventory} considers the effect of inventory sharing and rationing in a setting where resources can be shared among different dealers. \cite{govindarajan2021joint}
+discuss the interlinked inventory and fulfillment decisions for omni-channel retailers. In particular they consider the trade-offs of pooling and decentralization when considering in-store and online orders. They develop a fulfillment heuristic which set location-specific, time-varying inventory thresholds which dictate the rationing of store inventory between in-store and online demands. 
+
+\paragraph{Fulfillment and transshipments:} The second problem is to fulfill demand optimally given fixed inventory allocation and uncertain future demand.
+ \cite{acimovic2015making} and \cite{acimovic2019fulfillment} explore how orders received online should be fulfilled to minimize costs and \cite{devalve2021understanding} derive spillover policies to decide whether the retailer should allow for fulfillment flexibility or hold inventory back for future demand. 
+
+Transshipment, on the other hand, is used for a multi-period setting referring to redistribute inventory across warehouses between periods. For example, see \cite{mieghem2002newsvendor} and for a general review on the transshipment literature we refer to the reader to \cite{chiou2008transshipment}. In these papers, 
+cross-fulfillment effects are not considered.  
+ 
+
+In our work, we introduce a novel fulfillment policy that utilizes Fulfillment Rules but our goal is to model the shipping costs of each inventory decision in the two-stage inventory optimization problem. With our policy, we can adapt to any level of fulfillment flexibility desired by the retailer as well as provide a tractable solution for the inventory allocation problem. 
+
+
+\paragraph{End-to-end learning:} Finally, there is a separate stream of work using the end-to-end learning paradigm in the setting of context-dependent demand distributions. Within the area of inventory optimization problems, the integration of learning and optimization was initially studied for example, in \cite{Ban2019} and \cite{oroojlooyjadid2020applying} for solving the feature-based newsvendor problem. 
+For a more complex version of the problem, \cite{qi2020practical} devise an end-to-end method for the multi-period replenishment problem. Our paper, unlike these, considers the impact of cross-fulfillment in the context of end-to-end learning.
+
+The concept of end-to-end learning has also been applied extensively to other problem areas such as dealing with uncertainty in the objective of general linear or quadratic programs. See \cite{elmachtoub2022smart}, \cite{optnet}, respectively. See \cite{poganvcic2020differentiation}, \cite{berthet2020learning}, \cite{cristian2023end} for various other methods and  and \cite{survey} for a general review.
+
+
+\section{Problem setting}
+
+In this section, we first formally define the supply chain problem we are considering. Next, we formulate the end-to-end framework we use. 
+
+\subsection{Multi-warehouse Newsvendor Problem with Cross-Fulfillment (NCF)}
+
+We consider a network of $M$ warehouses (these are the nodes in the network).  Each node $i$ has a local demand realization $D_i(\x)$ that is random and dependent on some feature information $\x$. In addition, each warehouse has an associated holding cost $h_i$ for each unit of inventory that was stored and remained unsold, as well as a lost sale cost $u_i$ associated with any unfulfilled demand. Finally, every node $i$ can fulfill an order of node $j$ with a shipping cost $c_{ij}$.
+
+The objective of this problem is to decide how much inventory $q_i$ to allocate to each node $i$ in order to minimize the expected cost, consisting of holding, fulfillment and lost sales costs. In what follows, we express this problem as a two stage optimization problem. In particular, we use auxiliary decision variables $a_{ij}$ that represent the number of units that node $i$ will ship to node $j$ to fulfill any excess local demand. Following that definition, $a_{ii}$ is the number of units that node $i$ used to fulfill its own local demand. Notice that $a_{ij}$ is a function of both $\boldsymbol{q}$ as well as $\boldsymbol{D}(\x)$ across the whole network. For a given $\x$, one would like to solve
+\begin{equation}
+\label{two_stage_og}
+\begin{aligned}
+&\min_{q_i \geq 0} \ \  E_{\dd \sim \D(\x)}[Z({\dd},{\q})] \qquad \textrm{where} \\  
+ Z({\dd},{\q}) = &\min_{a_{ij}\geq 0}
+ \sum_{i=1}^{M} \bigg[ h_i \big[ q_i - \sum_{j=1}^{M} a_{ij} \big]^+   +  u_{i} \big[ D_i - \sum_{j=1}^{M}  a_{ji}\big]^+ +  \sum_{j=1}^{M}    c_{ij} a_{ij}
+\bigg] \\
+& \quad \text{s.t:} \quad  
+\sum_{j=1}^{M} a_{ij} \leq  q_i \quad \forall i 
+\end{aligned}
+\end{equation}
+We make the assumption that $h_i < c_{ij} < u_j$, for each pair of nodes $(i,j)$. This is natural to assume since (1) $h_i < c_{ij}$  ensures that the fulfilled quantity does not exceed the demand, and (2) $c_{ij} < u_j$ ensures that it is preferable to fulfill the demand of one warehouse from another than lose a sale (common approach in practice). For general networks and demand functions the proposed two-stage formulation is not tractable as it requires enumeration over an exponential number of possible demand realizations in a stochastic optimization setting, which further requires an estimate of the demand from historical data. 
+
+We do not make any assumption on the distribution $\mathbf{D}(\x)$ and instead only suppose that we are given historical datapoints $(\x^n, \dd^n), n = 1, \dots, N$ of observed features $\x^n$ and observed demand $d^n_i \sim {D}_i(\x^n)$ at each location $i$. Given this data, one must then learn some forecasting function $f(\x)$ to predict future demand $\D(\x)$. Finally, we take an inventory allocation decision by solving \eqref{two_stage_og} using this prediction:
+\begin{equation}
+\label{eq:pred1}
+    \min_{q_i \geq 0} \ \  E_{\dd \sim f(\x)}[Z({\dd},{\q})].
+\end{equation}
+Any errors in $f(\x)$ will propagate into the optimization problem above so it becomes crucial to learn $f(\x)$ in a manner aware of its impact on \eqref{eq:pred1}.
+
+\subsection{The Joint Prediction and Optimization Framework}
+
+A traditional approach to using feature information is to first learn a function which predicts the demand distribution given features $\x$. Then, generate many samples from this distribution and solve the sample-average-approximation (SAA) problem to determine the inventory allocation levels. There are two primary issues with this approach. First, errors in the prediction stage will compound into errors in the decision stage. And second, one often needs an exponential increase in the number of samples to produce good decisions as the scale of the problem increases.
+
+The approach of end-to-end learning would remove both of these issues. In this approach, we propose to learn a mapping $f(\cdot)$ from observations $\x$ to the decision $\q$ of inventory to be allocated at each location. The goal is to directly minimize the total cost of these decisions. We assume $f$ to be a parametric function, say parameterized by weights $\theta$, such as the weights of a linear function or a neural network. One learns such a function $f_\theta$ by learning weights $\theta$ which minimize the in-sample cost which can be expressed by the following joint prediction-optimization problem:
+\begin{equation}
+    \min_{\theta} \sum_{i = 1}^n Z(\dd^n, f_\theta(\x^n)).
+\end{equation}
+This removes the distributional aspect of the problem. Instead of focusing on learning a demand distribution, we focus on learning decisions that minimize task-based cost.
+
+In this paper we will consider $f_\theta$ to be some differentiable function which can be learned by solving the above problem via gradient-based methods. However, in order to train the network and learn weights $\theta$ using gradient descent, one must compute each of the gradients as described by the chain rule:
+\begin{equation}
+    \frac{\partial Z(\dd^n, f_\theta(\x^n))}{\partial \theta} = \frac{\partial Z(\dd^n, f_\theta(\x^n))}{\partial f_\theta(\x^n)} \cdot \frac{\partial f_\theta(\x^n)}{\partial \theta}
+\end{equation}
+This requires differentiating through the output of a complex optimization problem with respect to its input $q$. Namely, computing $\partial Z(\d, \q) / \partial \q$. This can be done by differentiating through the KKT conditions at the optimal solution (see for example methods from \cite{optnet}, \cite{agrawal2019differentiable}). However, calculating this quantity is computationally expensive. In the next section we will introduce a heuristic approach, \emph{fulfillment rules}, to solving $Z(\d, \q)$ with an easy-to-compute gradient. 
+
+% \subsubsection*{Computing the gradient exactly}
+
+% In this section, we describe how to compute the gradient $\frac{\partial Z(\d, \q)}{\partial \q}$ exactly. Let $a^*(\d,\q)$ be the optimal fulfillment to $Z(\d,\q)$ from solving \eqref{two_stage_og}. Then, the gradient is given by
+% \begin{equation}
+%     \frac{\partial Z(\d, \q)}{\partial q_k} =  h_k - \sum_{i=1}^M h_i \frac{\partial a^*_{ij}(\d,\q)}{\partial q_k} - \sum_{i=1}^M u_i \frac{\partial a^*_{ji}(\d,\q)}{\partial q_k} + \sum_{i=1}^M \sum_{j=1}^M c_{ij} \frac{\partial a^*_{ij}(\d,\q)}{\partial q_k}.
+% \end{equation}
+% It remains to compute $ \partial a^*_{ji}(\d,\q) / \partial q_k $
+
+\section{Approximations with Fulfillment Rules}
+
+In this section we introduce the notion of a \emph{fulfillment rule}. This is a useful and versatile heuristic in approximately solving the cross-fulfillment problem. This heuristic solution is significantly faster to evaluate than computing the optimal fulfillment. Moreover, computing the gradient also requires a fraction of the time.  We also provide additional analysis to gain intuition into its interpretable properties. This method can also be used to solve the inventory allocation problem directly in the no-feature case and we present an efficient algorithm to do so in sections \ref{sec:characterize}-\ref{algo_section}.
+
+\subsection{Fulfillment Rules}
+\label{sec:fulfilment-rules}
+
+A fulfillment rule is a set of rules that describes the inventory sourcing of customer orders (fulfillment) across warehouses. 
+%\notePH{maybe reword as ...the inventory sourcing of customer orders (fulfillment) across warehouses. Also, Do these rules specify inventory levels, for example priority above a safety stock value?} 
+These rules are fixed beforehand and as a result, they are given to the optimization problem as an input. They can even depend on the inventory levels of each warehouse. For instance, a warehouse might fulfill another if its inventory is above a safety stock value.
+A common fulfillment rule used in practice is to prioritize cheaper edges (warehouses) over more expensive ones and only use the latter if one runs out of inventory. 
+% Given a network of warehouses we can generate a cost-based fulfillment rule just by sorting the costs of all the edges that connect each pair. 
+% \notePH{Move this line to later?} 
+
+Mathematically, we define a fulfillment rule as any complete ordering of the $(i,j)$ pairs. To do so, we define a priority set $O(i,j)$ in the following way:
+\begin{equation}
+\label{definition-O}
+O({i,j}) = \{{lk}: lk \text{ has higher fulfillment priority than } ij  \}
+\end{equation}
+The ordering of the fulfillment will ensure that node $i$ will not ship to node $j$ if there is available inventory in a node $k$ such that $(k,j) \in O({i,j})$ that can fulfill the demand. Using this definition will allows us to model the ordering of the shipments for every demand realization in closed form. In order to implement the fulfillment policy, for each edge $(i,j)$ starting from the highest priority, we allocate as much inventory as possible until either the demand of $j$ is covered or there is no supply available in $i$. While this policy can be simpler than the actual fulfillment policies of retailers in practice, this provides an important foundation and a modeling tool to simplify the optimization problem. After making an inventory decision and when the demand is realized, one could optimally fulfill instead of using this fulfillment rule.
+
+%\notePH{Maybe we can add a line on how the fulfillment happens if we have such rules. It is not obvious, if one does it by destination node or other. We have to also acknowledge that this is much simpler than what is done in practice where fulfillment is a multi-item order satisfaction}  % addressed
+
+
+In practice, \textcolor{black}{after inventory positioning or allocation,} minimizing \textcolor{black}{shipping} cost of fulfillment is one of the primary concerns of retailers. Hence a useful rule to consider is to prioritize cross-fulfillments with the lowest  \textcolor{black}{shipping} costs. First, one considers cross-fulfilling between any two warehouses with the lowest shipping cost (breaking ties at random), then the next lower shipping-cost pair, and so on. \textcolor{black}{We will call this a cost-based fulfillment rule and it will be the default rule we use in the rest of the paper.} 
+
+% and so on until as much demand as possible has been fulfilled across the network.
+
+% In practice, the rule is usually decided by the ordering of the fulfillment costs with the goal of maximizing the revenue margins. \notePH{Not clear what this means and need a line to explain this} 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.3]{images/counter_example_4.png} 
+	\centering
+	\caption{Example network with 4 stores and their corresponding symmetric cross fulfillment costs. Each store $i$ has an inventory $q_i$ and a demand realization $d_i$.
+	}
+	\label{img:counter_example_4}
+\end{figure}
+
+
+
+An example can be seen in the simple network  of figure (\ref{img:counter_example_4}). Assume that for each location $i$ the corresponding costs $c_{ii}$ are $1$. Then the ordering of the fulfillment costs is as follows $c_{11},c_{22},c_{33},c_{44},c_{12},c_{21},c_{13},c_{31},c_{23},c_{32},c_{34},c_{43},c_{14},c_{41}, c_{24},c_{42}$. Following the definition (\ref{definition-O}), the priority  set of the edge between locations $1$ and $3$ is $O({1,3})= \{11,22,33,44,12,21\}$. 
+
+
+We can generate a cost based fulfillment rule for any network through sorting its corresponding fulfillment costs in ascending order. 
+% However, this fulfillment structure does not always minimize the overall cost. 
+%\notePH{Need to explaint to what problem}  addressed
+However, these fulfillment rules are approximate as they do not always minimize overall fulfillment cost.
+Sometimes it is more cost efficient to prioritize a fulfillment with a higher shipping cost since it would result in a better overall solution for the network. In the example of Figure \ref{img:counter_example_4}, let every node $i$ have inventory $q_i$ available and a demand realization $d_i$ as specified in the figure. Using the ordering of shipping costs to fulfill the solution would be: $\{a_{11}=10, a_{22}=5, a_{33}=15, a_{44}=10, a_{13}=10, a_{24}=5\}$ with a total fulfillment cost of $\$115$.
+The optimal solution however is: $\{a_{11}=10, a_{22}=5,a_{33}=15,a_{44}=10,a_{13}=5,a_{14}=5,a_{23}=5\}$ with a total fulfillment cost of $\$110$.
+It is preferable to fulfill $5$ units of demand of store $3$ from $2$ instead of $1$ and use the inventory of $1$ to ship it to store $4$ because the alternatives are more expensive. 
+
+
+% \st{Nevertheless, t}\st{This greedy strategy is very useful and as we will see in computation experiments, tends to provide nearly optimal allocation decisions. After making an inventory allocation decision using the this proposed fulfillment rules method, one can subsequently optimally fulfill realized demand in practice (without using the fulfillment rules).}
+
+% \st{We will call this a cost-based fulfillment rule and it will be the default rule we use in the rest of the paper as we primarily consider only minimizing shipping cost. }
+
+% \notePH{Make this remark at the end of this section saying because we work with just shipping costs}
+
+
+% \subsubsection*{Local Fulfillment Rule}
+
+% In order to emphasize the importance of cross fulfillment, let us compare those costs with another naive rule that allows each store to only fulfill its own local demand and lose any excess demand. 
+
+% This fulfillment rule might be relevant if the warehouses are so far from each other, or the cost of cross-fulfilling is so high that is no longer profitable for a retailer to cross-fulfill. An example could be a network where each continent has its own warehouse. Then each location will only use its inventory to satisfy the local demand and will lose any excess demand. Some retailers might prefer to lose demand than to increase their fulfillment costs. 
+
+% %Another relevant application can be an online setting where decisions has to be made as soon as the demand arrives. The decision maker has to either immediately ship to satisfy the demand or lose it. In this setting where decision are taken sequentially without the knowledge of the overall demand, decision makers might prefer to fulfill only locally in order to maximize the profit margin per unit sold. \notePH{I am not sure I agree with the second example. In real world it is dynamic with the real-time inventory levels managed by order management systems. We do not have to justify this rule or provide instances where it is used. Just say often planning considers such a rule. }
+
+% However, going back to the example of demand realization in Figure \ref{img:counter_example_4} , the local fulfillment rule will result into $15$ units of demand lost and $15$ units of unsold inventory to locations $1$ and $2$. With a holding cost of $2$ per location and lost sale cost of $10$, the total cost for that solution would be $\$220$. 
+% The difference in cost is the reason why retailers use cross fulfillment in such networks and why we are trying to capture it when deciding the inventory level at each location. 
+
+%\notePH{I am wondering if it makes sense to introduce the rules and write an example, introduce figure and the fulfillment rules in each method and the resulting costs. So, the example is its own part of the discussion. } %all are now in the same page
+
+%As discussed above, the hardness of the two stage optimization problem stems from the fact that every demand realization might have a different optimal fulfillment policy. Thus in order to optimize for inventory across the network while capturing the effects of cross fulfillment, one has to solve for every possible demand realization which makes the problem intractable. \notePH{Not need to repeat. Consolidate with the prior discussion} % addressed - removed
+
+% \subsubsection*{Speed-based Fulfillment Rule}
+
+% As mentioned earlier, one can create fulfillment rules using any kind of criteria other than cost. A speed-based fulfillment rule prioritizes the fastest shipment available despite having a potentially higher cost. For instance, air-shipping or shipping from an expensive location inside a city might result in high costs but might reach the customer faster than fulfilling from a warehouse further away. Speed-based fulfillment rules might be more suitable for high priority customers that are promised same day delivery, e.g prime customers of Amazon. Companies might want to prioritize the speed to increase customer satisfaction and grow their business. Fulfillment rules can also capture any preference between costs, speed, etc. 
+% % \notePH{Maybe this last line is a separate paragraph where rules are also helpful when there are costs within a segment and then there are rules across segments, as in the case of prime customers. Also, when we want to warehouse first and then stores regardless of costs as there are many hidden savings using warehouses like labor cost etc. }
+% %time-sensitive applications like organ transplants where the main objective is to minimize the time it takes to reach the recipient. \notePH{This is too dramatic an example to motivate this. You can just say high priority customers, e.g., prime customers for Amazon.} Such a rule might be relevant for retailers as well, when either they want to prioritize customer satisfaction in order to grow their business, or when the difference in shipping costs between locations is negligible compared to the profit margin from the product. \notePH{Maybe add one line on why speed may not be aligned with cost due to efficient warehouse management vs. nearby store fulfillment. This goes back to node specific costs also do exist. }
+
+% Finally, even a random cross fulfillment policy can be a fulfillment rule as long as the ordering of the pairs is decided before the demand realization. Regardless of the criteria, fulfillment rules have the major advantage of simplifying the two-stage problem into a single stage one. We will show in Section \ref{section:optimal-solution} that we can characterize the optimal solution as a system of equations. 
+
+\subsection{The NCF formulation with Fulfillment Rules}
+\label{section:optimal-solution}
+
+% Our goal in this session is to use the fulfillment rules to reduce the intractable two stage optimization problem (\ref{two_stage_og}) into a set of equations. We will then develop an an efficient algorithm called Fulfillment Rules Algorithm (FRA) to solve that system and get to the desired inventory solution. \notePH{This para can come in later.}
+
+Fulfillment rules simplify the second stage problem of formulation (\ref{two_stage_og}), allowing us to characterize $a_{ij}$ analytically. In particular, 
+\begin{equation}
+\label{simplification_of_aij}
+a_{ij}(\d,\q) = \min\left( q_i - \sum_{ il \in O(i,j)} a_{il}    ,\   d_j - \sum_{lj \in O(i,j)} a_{lj} \right)
+\end{equation}
+The above structure is derived by following the ordering provided by the Fulfillment Rules and the corresponding priority sets $O(.,.)$. Starting from the highest priority, for each edge $(i,j)$ in the network, you allocate as much inventory as possible until either the demand of $j$ is covered or there is no supply available in $i$. 
+
+This would result into $a_{ij}$ being equal to the minimum between the available inventory of node $i$ and the remaining demand of node $j$. The available inventory for $i$ is calculated after fulfilling the demand of all nodes that $i$ prioritizes over $j$. The same applies for the remaining demand of node $j$. It is the demand left unmet after all the nodes with higher priority than $i$ have shipped inventory to $j$.
+
+Cost based fulfillment rules provide a very good approximation to the optimal fulfillment solution
+% \notePH{which one allocation or fulfillment? Maybe say it as help in providing a good approximation to fulfillment so that a good allocation can be derived} 
+since they are optimal for most demand realizations, and close to optimal for the rest. This allows us to ultimately derive good allocations.
+Finally, notice that as mentioned earlier, the actual fulfillment does not have to obey those rules. Fulfillment rules allow us to have 
+% In this work, we introduce them only to have 
+a tractable solution to the two stage inventory optimization problem. 
+% \notePH{Our reasoning why we are doing this needs to be consistent through the paper} 
+After deciding the inventory allocation and observing the demand realization, one can just resolve the exact fulfillment optimization problem and get an optimal allocation.
+
+Using equation (\ref{simplification_of_aij}) we can now characterize the optimal solution. % under a given set of fulfillment rules. 
+Given a set of fulfillment rules, we no longer have to solve $Z({\bf d},{\bf q})$ of problem (\ref{two_stage_og}) to get the $a_{ij}$. Instead we can directly use the equation (\ref{simplification_of_aij}). Thus, the two stage problem (\ref{two_stage_og}) reduces to the single stage unconstrained problem. Formally, we let $\hat{Z}(\d, \q)$ describe the fulfillment cost of the inventory allocation decision $\mathbf{q}$ when there is a fixed demand realization $\mathbf{D}$. This is given by 
+
+\begin{equation}
+    \hat{Z}(\mathbf{d}, \mathbf{q}) = \sum_{i=1}^{M}  h_i \big[ q_i - \sum_{j=1}^{M} a_{ij}(\d,\q) \big]   +  u_{i} \big[ d_i - \sum_{i=1}^{M}  a_{ij}(\d, \q)\big] + \sum_{i=1}^M \sum_{j=1}^{M}    c_{ij} a_{ij}(\d, \q)
+\end{equation}
+Then, the optimal inventory allocation decision can be formulated as choosing the decision $\mathbf{q}$ which minimizes the expected cost:
+\begin{equation}
+\label{single_stage}
+\begin{aligned}
+&\min_{q_i \geq 0} \ \
+ E_{D} [\hat{Z}(\mathbf{d}, \mathbf{q})
+] \\
+\end{aligned}
+\end{equation}
+In addition, the objective function is convex as it is a sum of convex functions. We later show experimentally the fulfillment rule approximation yields nearly optimal results for realistic demand distributions. 
+
+In the next sections, we present some analysis on the fulfilment rule approach, and the nature of the solutions when solving the stochastic demand fulfilment problem. This is not explicitly used in the end-to-end setting since here we use point forecasts and the solution can be found directly from \eqref{simplification_of_aij}. However, this analysis gives some nice intuition behind fulfilment rules and further motivates its usage. 
+
+\subsubsection{Characterizing the optimal solution for a given set of rules}
+\label{sec:characterize}
+ We now present a method to tractably solve the original (feature-less) inventory allocation optimization problem (\ref{single_stage}). This is of interest independent of the end-to-end setting as we gain some insights into the structure of the solutions of the fulfilment rule method. First, we 
+present a system of equations that describes the optimal solution to (\ref{single_stage}) itself. Then, we provide further insight into a 2-warehouse example.
+
+\begin{theorem} \label{theorem:system} 
+% Without loss of generality we assume that in the fulfillment rule $O()$, for every $i$, $ii$ has higher priority than $ij \forall j \neq i$ then, 
+The optimal solution of optimization problem (\ref{single_stage}) is the solution of the following system of equations:
+\begin{subequations}
+\begin{align}
+&h_i + \sum_{j=1}^{M} \sum_{k=1}^{M} (c_{jk} -h_j) \frac{\partial E[a_{jk}]}{\partial q_i}   
++  
+\sum_{j = 1}^{M} u_{j} \frac{\partial E\big[ D_j - \sum_{k=1}^{M}  a_{ki}\big]^+}{\partial q_i}  = 0 \quad \forall i \label{system_obj} \\
+&\text{where:} \nonumber\\
+&\frac{\partial E[D_j - \sum_{k=1}^{M} a_{ki}]^+ }{\partial q_i} = - P(D_j \geq q_j + \sum_{k\neq j}^{M} [S_{kj}]^+, S_{ij} \geq 0 ) \label{system_lost_sale}\\
+& \frac{\partial E[a_{ij}]}{q_i} =  P( W_{i,j,i} ) \label{system_PW}\\
+& \frac{\partial E[a_{ji}]}{\partial q_i} = -P( R_{i,j,i} ) \label{system_PR}\\
+& \frac{\partial E[a_{ij}]}{\partial q_l} = P(W_{i,j,l})  - P( R_{i,j,l}) \label{system_PW-PR} \\
+&S_{ii} = q_i \qquad \forall i \label{system_S_ii}\\
+&S_{ij} = q_i - D_i - \sum_{k\neq i : ik \in O(i,j)}\big[D_k - \sum_{l : lk\in O(i,k)}[S_{lk}]^+ \big]^+ \qquad \forall i\neq j \label{system_S_ij}\\
+&W_{i,j,i} = \{ S_{ij} \geq 0 , D_j \geq q_j + \sum_{k\neq j: kj \in O(i,j)}[S_{kj}]^+ +  S_{ij} \} \qquad \forall i,j \label{system_W_iji}\\
+&R_{i,j,i} = \{ q_i + \sum_{k\neq i: ki \in O(j,i)}[S_{ki}]^+  \leq D_i \leq q_i + \sum_{k\neq i: ki \in O(j,i)}[S_{ki}]^+ + S_{ji}\} \qquad \forall i,j \label{system_R_iji}\\
+&W_{i,j,m} = \{ S_{ij} \geq 0 , D_j \geq q_j + \sum_{k\neq j: kj \in O(i,j)}[S_{kj}]^+ +  S_{ij}, \bigcup_{k: jk \in O(j,i)} R_{k,i,m} \} \qquad \forall m \neq i \label{system_W_ijm}\\
+&R_{i,j,m} = \{ q_i + \sum_{k\neq i: ki \in O(j,i)}[S_{ki}]^+  \leq D_i \leq q_i + \sum_{k\neq i: ki \in O(j,i)}[S_{ki}]^+ + S_{ji}, \bigcup_{k: ki \in O(j,i)} W_{k,i,m}\} \qquad \forall m \neq i \label{system_R_ijm} 
+\end{align}
+\end{subequations}
+\end{theorem}
+\proof{Proof: }The proof follows from the KKT conditions of the convex objective (\ref{single_stage}) that yield the system of equations as seen in (\ref{system_obj}). (\ref{system_lost_sale})-(\ref{system_R_ijm}) are just describing the terms of (\ref{system_obj}).   \Halmos \endproof
+
+Next we are going to explain all the terms in Theorem \ref{theorem:system}.
+First, we define $S_{ij}$ in (\ref{system_S_ii}) and (\ref{system_S_ij}) as the available inventory of location i to ship to location j after fulfilling the previous demand with higher priority. Without loss of generality, and for ease of exposition, we will assume that each location prioritizes to fulfill its own demand first. This is common in practice since it is usually cheaper and faster to fulfill the local demand first and thus the profit margins are greater. Notice that $S_{ij}$ can become negative, meaning that location $i$ could not fulfill all the previous locations with higher priority, including itself, and thus has no inventory available for $j$. We will mostly use $[S_{ij}]^+$ as the quantity available from node $i$ to $j$ as well as $\mathbbm{P}(S_{ij}\geq 0)$ which is the probability of node $i$ having remaining inventory to fulfill extra demand in $j$.
+
+%\notePH{Why do you need this and why is this not expressed in the rule itself}
+
+Furthermore we will define the following two events, $W_{i,j,m}$ and $R_{i,j,m}$ as seen in (\ref{system_W_iji})-(\ref{system_R_ijm}). The first is the event that an extra unit of inventory at node $m$ would result in an extra shipment between the warehouses $i$ and $j$ after the demand is realized. For example, this may occur if node $m$ ships the newly available unit to a node that was previously fulfilled by node $i$. Then, node $i$ essentially has an extra unit available, which it sends to node $j$.
+% Increasing a unit in node $m$ might create a chain of events that would result in another node $j$, receiving an extra shipment from node $i$. A single unit of inventory might change many shipments in the fulfillment. This might happen directly if $m=i$ or indirectly. The latter occurs when node $m$ ships the newly available unit to another node that was previously fulfilled by $i$. Now $i$ has an extra item that was ``returned" to it and it will use it to fulfill demand in $j$ thus increasing the shipment from $i$ to $j$ by an extra unit. 
+Symmetrically, $R_{i,j,m}$ defines the event that allocating extra unit to location $m$ would result in a return of an item from warehouse $i$ to $j$. 
+
+% \notePH{I do not follow this very clearly and please can you walk me through each step}
+
+
+Finally, the events $W_{i,j,m}$ and $R_{i,j,m}$ are defined recursively since for a node to send an extra unit it must first receive a return shipment from another node.
+These probabilities, along with the probabilities of events $W_{i,j,m}$ and $R_{i,j,m}$ happening would be a key element in understanding the system that characterizes the optimal solution. Indeed, looking at lines (\ref{system_PW}) -(\ref{system_PW-PR}) we observe that the derivatives equation (\ref{system_obj}) are probabilities of the aforementioned events $W_{i,j,m}$ and $R_{i,j,m}$. Finally, the term (\ref{system_lost_sale}) is also a probability, specifically the probability of node $j$ having unfulfilled demand despite getting inventory from node $j$.
+
+%\notePH{Each of these lines requires term by term explaination. I would first introduce the first two equations before you introduce the two events in the above paragraph. You need to explain at a high level what you aim to do and then introduce first two line and then the W and R for the own i and then the "m". Maybe that will make it easier. }
+%\notePH{This seems like a bit of deep work not explained well. Firstly objective (4) does not have W and R and so there is a connection that is missing link. For example, why would you not introduce proposition 1 and then introduce W and R and that motivates that these are easy to compute...just asking?} % changed the structed putting the theorem first
+
+
+Furthermore, terms (\ref{system_PW}) -(\ref{system_PW-PR}) are the probabilities of $q_l$ changing the $a_{ij}$ allocation. This fact provides an interpretation to system (\ref{system_obj}). Each unit increase of $q_i$ adds a holding cost $h_i$ and decreases potential shipping costs or lost sale costs with a corresponding probability. Just like the classic newsvendor formulation, the goal is to balance these costs perfectly for every location.
+
+To conclude, the terms in Theorem \ref{theorem:system} are probabilities of events that can be calculated empirically or analytically using either the available data or the knowledge of the actual demand distribution. 
+
+%Finally, notice that $a_{ij}$ does not have to be the actual fulfillment strategy after the demand is realized. It is solely used as a compass to the inventory optimization model in order to capture how the demand and inventory interact across the network.
+Although the equations fully describe the optimal solution, each derivative depends on all the decision variables as well as the demand. Changing any of the inventory decision variables may potentially also affect all the others in a nonlinear way. Thus, it is hard to solve this problem for general probability functions and multiple warehouses.
+On the other hand, each derivative is associated with the probability of an event, making the system of equations interpretable and at the same time suggesting a direct way to calculate those derivatives using the corresponding empirical probabilities.
+In Section \ref{algo_section} we will discuss more on the solution of the system (\ref{system_obj}) as well as the benefits that come with it.
+
+% Does this read nicely?
+%In general, fulfillment rules do not always capture the optimal allocation strategy for every demand realization.
+%However, the derivatives of the objective as seen in (\ref{system}) allow the end-to-end learning framework to use the exact $w^{*}$ instead of the $\hat{w}$, thus solving the problem without any further approximations.
+
+
+Before introducing a general methodology to solve the system of equation presented in Theorem \ref{theorem:system}, we will present the solution for a special case of a network with only two warehouses in order to get intuition on the structure of the optimal inventory.
+
+
+\subsubsection{Special Case: 2 warehouses setting:}
+
+To illustrate some of the ideas of this paper, we now consider a simple network of two warehouses where $c_{11}$ and $c_{22}$ are the costs of fulfilling a single unit of local demand in warehouses $1$ and $2$ respectively. These are lower than the symmetric cross-fulfillment cost $c_{12}= c_{21}$. In addition, they share the same holding and underage costs, that is, $h_1 = h_2 = h$ and $u_1 = u_2 = u$. We are interested in optimizing with respect to $q_1$ and $q_2$. 
+For that special case we have the following corollary:
+%In that case, system (\ref{system}) simplifies to:
+
+\begin{corollary}\label{cor:2_loc} For 2 locations with equal holding and lost sales costs as well as symmetric shipping costs the equations from Theorem \ref{theorem:system} simplify to the following system that yields the optimal solution of the two stage problem (\ref{two_stage_og}).
+\begin{equation}
+\begin{aligned}
+\label{2_warehouses}
+k^* &= P(D_1 + D_2 < q^*_1 + q^*_2) \\
+q^*_1 &=  F_{D_1}^{-1} \Big( \frac{u - c_{11} - (h + u - c_{12})  * k  }{  c_{12} - c_{11} } \Big)\\
+q^*_2 &= F_{D_2}^{-1} \Big( \frac{u - c_{22} - (h + u - c_{12}) * k  }{ c_{12} - c_{22} }\Big)
+\end{aligned}
+\end{equation}
+\end{corollary}
+\proof{Proof: } Since system (\ref{system_obj}) yield an optimal solution with a cost based fulfillment rule then this solution is also optimal to problem (\ref{two_stage_og}). \Halmos \endproof
+% \notePH{This line should be a statement of the corollary or outside it.} 
+Furthermore, notice that for two locations, the cost based fulfillment rules are always the optimal fulfillment strategy. This is because it is always optimal to fulfill first from one's own warehouse, then if needed from the only other second warehouse.
+% \notePH{maybe be write with a f inverse as q is the optimal solution}
+%add a contradiction argument about the optimality of the fulfillment rules?
+
+
+The first equation is about $k$ which is the service level of the overall network, meaning the probability that there will be no lost sales across the warehouses.
+In order to solve system (\ref{2_warehouses}) we need to find the optimal $k^* \in [0,1]$. Notice that $k^*$ is dependent of the correlation of the demand among the two warehouses. Negative correlation translates into a higher service level and this in turn implies smaller optimal inventory across the network.
+
+Having the optimal service level $k^*$ we can solve for both $F_{D_1}(q^*_1)$ and $F_{D_2}(q^*_2)$. Finally by inverting the CDF we can derive the optimal inventory levels $q^*_1$ and $q^*_2$.
+Since both $F_{D_1}(q^*_1)$ and $F_{D_2}(q^*_2)$ are decreasing with respect to $k^*$, we can efficiently search for the optimal value using a bisection search method. This is a very efficient way to calculate the optimal solution in nonlinear settings with monotone properties. 
+
+%\textcolor{red}{Cite my capacity newsvendor paper --- sorry, what paper? can you do these Pavithra?}
+
+To better understand the structure of the optimal quantiles in (\ref{2_warehouses}) we can ignore the cross fulfillment effects and solve each problem individually using the classical newsvendor approach, see \cite{arrow1951optimal}. As a comparison, the solution for each warehouse $i$ is the following quantile of the demand $D_i$:
+\begin{equation}
+\begin{aligned}
+\label{classic_NV}
+q^*_i &=  F^{NV-1}_{D_i} \Big( \frac{u_i }{ u_i+ h_i  }\Big).\\
+\end{aligned}
+\end{equation} 
+In the extreme case where the optimal $k^*$ approaches $1$, the solution of each  location coincides with the solution of the classic newsvendor setting (see (\ref{classic_NV})) with holding costs $h$ and underage cost $c_{12} - c_{11} - h$ and $c_{12} - c_{22} - h$ respectively. Since $k^*=1$, there will be no loss of demand in each location, and therefore, the new underage cost is the extra cost of shipping from the farthest location minus the holding costs for not having to store this extra unit.
+
+% In the next session we will provide a way to solve the Fulfillment Rule Algorithm (FRA) to multiple locations both for continuous as well as discrete distributions.
+
+\subsubsection{Fulfillment Rules Algorithm}
+\label{algo_section}
+
+To close the loop, we will now discuss how to solve the inventory allocation problem for general settings where there exists a large number of nodes. Here we will assume we are already given a distributional forecast of demand. In the next section, we discuss how to learn the forecast jointly with the fulfillment problem. In this section we develop the Fulfillment Rule Algorithm (FRA) (see Algorithm~\ref{alg}) that uses the set of equations from Theorem \ref{theorem:system} as well as a coordinate descent method to generate an inventory allocation under any demand distribution.
+
+%\notePH{Do you want to say this is for general setting. Also, please can you say what you aim to be achieving at a high level in this section before you begin. } addressed.
+
+Using the system of equations (\ref{system_obj})-(\ref{system_PW-PR}) we will define $L_q[i]$ as well as the matrices $\boldsymbol{V}$ and $\boldsymbol{J}$ as follows:  
+\begin{equation}
+\begin{aligned}
+& L_q[i] = h_i + \sum_{j=1}^{M} \sum_{k=1}^{M} (c_{jk} -h_j)  V[i,j,k] 
++  
+\sum_{j = 1}^{M} u_{j} J[i]\\
+% &where: \\
+&  V[i,j,k] = \frac{\partial E[a_{jk}]}{\partial q_i} \\
+&  J[i] = \frac{\partial E\big[ D_j - \sum_{k=1}^{M}  a_{ki}\big]^+}{\partial q_i}.
+\end{aligned}
+\end{equation}
+
+Notice that $L_q[i]$ is the derivative of the convex objective function of problem (\ref{single_stage}), thus, $L_q[i]$ is monotonically increasing with respect to $q_i$.
+The fulfillment algorithm will minimize the sum of the squares of $L_q[i]$ by doing a block descent. This is equivalent to solving the equations $L_q[i]=0$ for every location $i$. 
+At every step, it will optimize each the inventory of one location keeping the others constant. 
+To do so, it will take advantage of the monotonicity of function $L_q[i]$ and use bisection search to find the solution.
+
+Each $V[i,j,k]$ and $J[i]$ are actually probabilities of events. At each step of the algorithm, while updating the current solution $\boldsymbol{q}$ we must also update the matrices $\boldsymbol{V}$ and $\boldsymbol{J}$. 
+%\notePH{V and J were not introduced before} 
+There are two ways to do so, if the probability distribution is either  unknown or intractable to compute, the probability of those events for the current value of $\boldsymbol{q}$, then we will compute the empirical probability using the available samples. Alternatively, one can use their corresponding formulas to update them. 
+
+We initialize the algorithm with $\boldsymbol{q}^{U}$, an upper bound to the optimal inventory level. This could be the maximum observations of demand in the past or in most networks the solution of the classic Newsvendor as seen in (\ref{classic_NV}) since it always considers a much higher cost $u_i$ instead of the cross shipping cost for every excess unit of demand. The optimal solution $q^*_i \in [0,q^{U}_i]$ and these would be the limits we would apply bisection search for each location $i$.
+
+%discuss about how it can change?
+
+%Write about \epsion as well
+
+\begin{algorithm}[ht]
+	\SingleSpacedXII
+	\begin{algorithmic}
+		\State Initialize $\boldsymbol{q} = \boldsymbol{q}^{NV}$ 
+		\State Calculate $\boldsymbol{V}$ and $\boldsymbol{J}$
+		\While {$\sum_{i=1}^{M} L^2(q_i) \leq \epsilon $}
+		\ForAll{$i \in [1,..,M]$}
+		\While{$L_q[i] \neq 0$}
+		\\ \hspace{2cm} Apply a Bisection search step for $q_i$
+		\\ \hspace{2cm} Update $\boldsymbol{V}$, $\boldsymbol{J}$
+		\EndWhile 
+		\EndFor 
+		\EndWhile
+	\State Terminate with $\boldsymbol{q}$  
+	\end{algorithmic}
+ \caption{fulfillment Rules Algorithm}
+ \label{alg}
+\end{algorithm}
+
+The update step after every bisection search is performed differently depending on whether the distribution is continuous of discrete. In the first case, the probabilities are calculated using the knowledge of the cumulative probability functions of the distribution as well as the current inventory level in each warehouse. On the other hand, if this calculation is not tractable or the distribution is discrete, the probability matrices are calculated empirically, using the available demand samples. In particular,
+after every bisection step we use an efficient update routine where we keep track the last shipment from and towards each locations. This way, we are able to quickly calculate how each probability matrix is changing if we increase the inventory level by a unit at each location, which is crucial for the method to decide whether to increase or decrease the inventory.
+
+\begin{theorem}\label{Thm:conv}
+	Assuming that $L_q[i]$ has a unique minimizer, then the Fulfillment Rules Algorithm terminates for every $\epsilon$. Furthermore, for $\epsilon=0$ it converges asymptotically to the solution of system (\ref{system_obj}). 
+\end{theorem}
+
+
+\proof{Proof: } The proof follows similarly to~\cite{luenberger1984linear} %p159
+since the coordinate descent method has a unique minimizer for each variable $q_i$. \Halmos \endproof
+%\notePH{We are solving convex problem and so it should find one of the optima, isn't it?} 
+%\notePH{Overall, I see I am missing a workflow of the problem/path taken in the paper}
+
+
+
+
+% Does this read nicely?
+%In general, fulfillment rules do not always capture the optimal allocation strategy for every demand realization.
+%However, the derivatives of the objective as seen in (\ref{system}) allow the end-to-end learning framework to use the exact $w^{*}$ instead of the $\hat{w}$, thus solving the problem without any further approximations.
+
+
+% \notePH{maybe be write with a f inverse as q is the optimal solution}
+%add a contradiction argument about the optimality of the fulfillment rules?
+
+
+%Cite my capacity newsvendor paper
+
+
+
+
+%\notePH{V and J were not introduced before} 
+
+
+
+\section{End-to-end NCF}
+
+
+Finally, we turn to the end-to-end newsvendor with cross-fulfilment problem (NCF). The key idea is to simplify the problem by replacing the objective function $Z$ using the idea of fulfillment rules. This helps significantly as this formulation removes constraints, and makes the objective function piece-wise linear and convex with respect to $\q$. 
+% Hence, \notePH{??}
+%
+%
+% This is a difficult problem and often this derivative can be zero everywhere, rendering gradient descent useless. This is true for example for any linear optimization problem, constituting a very large class of important problems. The optimal solution of a linear program is always a vertex, hence 
+%
+% \notePH{Explain why? Is it constraints? Maybe refer to the formulation (1) and the constraints in there} 
+%
+% \notePH{How does this help by eliminating constraints? Point to the formulation (4)}
+%
+Given an inventory decision $\q = f_\theta(\x)$, and a demand realization $\d$, the fulfillment strategy is given by transporting $a_{ij}(f_\theta(\x), \d)$ units of product from location $i$ to $j$ as given in Eq~\ref{simplification_of_aij}. The objective value of such a decision $f_\theta(\x^n)$ is then given by substituting $f_\theta(\x^n)$ for $\q$ in the objective of equation~(\ref{single_stage}):
+\begin{equation}
+\begin{split}
+Z_{FR}&(\d, f_\theta(\x)) = \\ & \sum_{i=1}^M h_i \left[ f_\theta(\x)_i - \sum_{j=1}^M a_{ij}(\d, f_\theta(\x)) \right] + u_i \left[ d_i - \sum_{j=1}^M {a_{ij}(\d, f_\theta(\x)) } \right]^+ + \\ & \sum_{j=1}^M c_{ij}a_{ij}(\d, f_\theta(\x)).
+\end{split}    
+\end{equation}
+Now, the joint prediction-optimization problem becomes 
+\begin{equation}
+\label{end-to-end}
+    \min_{\theta} \sum_{n = 1}^N Z_{FR}(\d^n, f_\theta(\x^n)).
+\end{equation}
+Crucially, notice that $Z_{FR}(\d, \q)$ is a piece-wise linear function of $\q$. Therefore, $\partial Z_{FR}(\d, \q) / \partial \q$ is straightforward to compute, resolving our issues of computing the gradient of $Z$. After training, the model $f_{\theta}(\x)$ directly proposes the inventory level $q$ for any new observation $\x$. Similar to FRA, this approach also does not require the use of a solver, unlike 2-step methods that require using the SAA method. Also, unlike these 2-step methods that require demand estimation followed by decision making, the proposed approach is a single step method, and does not require any intermediate demand estimation.
+
+Finally, to gain some intuition, consider again the no-feature setting. The formulation in (\ref{end-to-end}) is identical to the one we originally designed for the FRA (algorithm \ref{alg}) for the stochastic problem in (\ref{single_stage}). The primary difference is that FRA opted to solve the problem through a coordinate descent method to optimality, while we solve (\ref{end-to-end}) through a gradient descent method in the end-to-end case.
+% \textcolor{red}{This is good but FRA is not introduced. The 2 location example and FRA are good to keep, isn't it? Also, maybe this sub-section could be part of the previous one. Maybe introduce end-to-end and then introduce FRA to maintain the flow?}
+% \notePH{Contrast FRA and this method. What if there are not features, problem 12 is the same as 4 FRA provides a coordinate descent method but here you are using stochastic gradients }
+% \notePH{Also, we can end by saying, after solving, we are done as $q = f_{\theta}(X)$ for any new observation $X$. Also, this approach similar to FRA is solver free, unlike teh 2-step methods that requires SAA}
+
+\subsection{Robust end-to-end learning}
+\label{sec:robust}
+% \textcolor{red}{Should we call it robust end to end learning? Are there references you need to cite here?}
+
+The demand model trained in the previous section is specifically targeted at minimizing cost with respect to the particular holding costs $h_i$ and lost-sales costs $u_i$ {for each location $i$}. However, these values may themselves not be exact. For instance, the lost-sales cost may correspond to buying product for unmet demand from a competitor, which may fluctuate the price. {Alternatively, the retailer may want a what-if the decision-engine under a range of costs.} That is, to test out different possible scenarios in practice. Hence, it is important that the demand model trained still performs well even when there are changes in these parameters away from their nominal values. 
+
+Taking a robust approach against uncertainty/variation in these costs allows us to build a single forecasting model that performs well under all circumstances, even when these costs may change from their nominal values. This is particularly useful since otherwise we would need to retrain a potentially computationally expensive model tuned to a new set of cost parameters each time there is a change. 
+
+In particular, we take a robust optimization approach, learning a demand model which aims to minimize its worst case cost against adversarial perturbations of holding and lost-sales costs across the system. Concretely, given an \emph{uncertainty set} $\mathcal{U}$ of possible realizations of holding and lost-sales costs, we want decisions given by $f_\theta(x)$ to minimize the maximum possible cost:
+\begin{equation}
+\label{eq:robust}
+    \min_{\theta} \max_{h,b \in \mathcal{U}} \sum_{n=1}^N Z_{FR}(D^n, f_\theta(X^n), h, u),
+\end{equation}
+where $Z_{FR}(D^n, f_\theta(X^n), h, u)$ is identical to $Z_{FR}(D_n, f_\theta(X^n))$ only that it additionally parameterizes $h$ and $u$. 
+
+The choice of uncertainty set $\mathcal{U}$ is crucial. A set that is too large may be too conservative, asking us to protect against highly unlikely scenarios. Additionally, the choice may affect the difficulty and tractability of solving the corresponding optimization problem defined in (\ref{eq:robust}). 
+
+% For ease of notation, we only discuss uncertainty with respect to backorder cost $b$, although the same reasoning applies to simultaneous uncertainty in both $h$ and $b$, although one could create a new vector consisting of $h$ and $b$ appended together and discuss uncertainty sets for this instead. \textcolor{red}{This sentence is confusing as your equations below consider uncertainty in both h and b} 
+\begin{proposition}
+\label{prop}
+Consider a ball uncertainty set formulation for $\mathcal{U}_{\Gamma}(u)$. Note that if the radius is $\Gamma = 0$, then the problem becomes the original one, only considering the nominal values for the holding costs. We prove the following two results.
+\begin{enumerate}
+\item 
+For ball uncertainty sets $\mathcal{U}_{\Gamma_1}(\bar{h}), \mathcal{U}_{\Gamma_2}(\bar{u})$ which are centered around $\bar{h}$ and $\bar{u}$ respectively with radii $\Gamma_1, \Gamma_2$, the robust problem can be rewritten using duality as the following single minimization problem (see proposition that follows):
+\begin{equation}
+\label{eq:robust-e2e}
+\min_{\theta} \max_{\substack{h \in \mathcal{U}_{\Gamma_1}(\bar{h}) \\ u \in \mathcal{U}_{\Gamma_2}(\bar{u})}}  \sum_{n=1}^N Z_{FR}(\d^n, f_\theta(\x^n), h, u) = 
+    \min_\theta \sum_{n=1}^N  Z_{FR}(\d^n, f_\theta(\x^n), \bar{h}, \bar{u}) + R_h(\theta) + R_u(\theta)    
+\end{equation}
+where $R_h(\theta), R_u(\theta)$ are terms associated with adding robustness with respect to holding cost $h \in \mathcal{U}_{\Gamma_1}(h)$ and lost-sales cost $u \in \mathcal{U}_{b}$, respectively. In particular, 
+\begin{align}
+R_h(\theta) =&\  \Gamma_h  \sqrt{ \sum_{i=1}^M \left( \sum_{n=1}^N \left[ f_\theta(\x^n) - \sum_{j=1}^M a_{ij}(\d^n, f_\theta(\x^n))\right] \right)^2 } \\
+R_u(\theta) =&\  \Gamma_b \sqrt{ \sum_{i=1}^M \left( \sum_{n=1}^N \left[ \d_i^n - \sum_{j=1}^M {a_{ij}(\d^n, f_{\theta}(\x^n))} \right] \right)^2 }
+\end{align}
+
+% \textcolor{red}{Maybe one sentence on the solution procedure will be helpful or connect it to the part before.}
+
+\item 
+Using such uncertainty sets, given each $h_i, u_i$ is i.i.d gives us the following probabilistic bound. Suppose that $h_i$ (and similarly $u_i)$ are identically distributed random variables generated independently from the same distribution with support on $\bar{h}_i + [-1,1]$ (and $\bar{u}_i + [-1,1]$, respectively). Note these can be any arbitrary distributions, not necessarily uniform, for example. With probability at least $1 - \exp\paren{-\Gamma_1/2} - \exp\paren{-\Gamma_2/2}$, the realizations of $h$ and $u$ indeed lie in the uncertainty sets (i.e., $h \in \mathcal{U}_{\Gamma_1}(\bar{h}), b \in\mathcal{U}_{\Gamma_2}(\bar{u})$).
+\end{enumerate}
+\end{proposition}
+As we increase the radii $\Gamma_1 \Gamma_2$, it becomes exponentially more likely that the model learned by solving \eqref{eq:robust-e2e} protects against a realization of the supply chain parameters $h,b$.
+
+\begin{proof}{Proof of Proposition \ref{prop}}
+    We can rewrite the min-max problem by substitute in the definition of the objective function and the fulfilment rules: 
+\begin{align}
+    & \min_{\theta} \max_{\substack{h \in \mathcal{U}_{\Gamma_1}(\bar{h}) \\ u \in \mathcal{U}_{\Gamma_2}(\bar{u})}}  \sum_{n=1}^N Z_{FR}(\d^n, f_\theta(\x^n), h, u) = \label{eq11} \\ 
+    & \min_{\theta} \max_{\substack{h \in \mathcal{U}_{\Gamma_1}(\bar{h}) \\ u \in \mathcal{U}_{\Gamma_2}(\bar{u})}} \sum_{n=1}^{N} \left[  \sum_{i=1}^M h_i \big[ f_\theta(\x^n)_i - \sum_{j=1}^{M} a_{ij}(\d^n,f_\theta(\x^n)) \big]   +  \sum_{i=1}^M u_{i} \big[ d_i - \sum_{j=1}^{M}  a_{ji}(\d^n, f_\theta(\x^n))\big]+ \sum_{i=1}^M\sum_{j=1}^M     c_{ij} a_{ij}(\d, f_\theta(\x^n)) \right].\nonumber 
+\end{align}
+For ease of explanation, we focus only on the $h$ term, the result follows by the same argument for the $u$ term. That is, we focus on 
+\begin{equation}
+    \min_{\theta} \max_{h \in \mathcal{U}_{\Gamma_1}(\bar{h})} \sum_{n=1}^{N} \sum_{i=1}^M h_i  \big[ f_\theta(\x^n)_i - \sum_{j=1}^{M} a_{ij}(\d^n,f_\theta(\x^n)) \big]
+\end{equation}
+and take the dual of the inner maximization problem. First, we rewrite by swapping the outer summations: 
+\begin{equation}
+    \min_{\theta} \max_{h \in \mathcal{U}_{\Gamma_1}(\bar{h})} \sum_{i=1}^M h_i \sum_{n=1}^{N} \big[ f_\theta(\x^n)_i - \sum_{j=1}^{M} a_{ij}(\d^n,f_\theta(\x^n)) \big]
+\end{equation}
+and we can further simplify notation by letting $p_i(\theta) =  \sum_{n=1}^N \big[ f_\theta(\x^n)_i - \sum_{j=1}^{M} a_{ij}(\d^n,f_\theta(\x^n)) \big]$ so now we have 
+\begin{equation}
+    \min_{\theta} \max_{h} \sum_{i=1}^{M} h_i \cdot p_i(\theta), \quad \text{such that } \norm{h - \bar{h}}_2^2 \leq \Gamma_1^2.
+\end{equation}
+The inner maximization has a closed form solution that can be found by the standard Lagrangian multiplier method. The problem simplifies to 
+\begin{equation}
+    \min_{\theta}    \sum_{i=1}^M \bar{h}_i p_i(\theta) + \Gamma_1 \paren{\sum_{i=1}^M p_i(\theta)^2}^{1/2}.
+\end{equation}
+A similar result can also be found in \cite{bertsimas2022robust} section 2.3, for example. Note that $R_h(\theta) = \Gamma_1 \paren{\sum_{i=1}^M p_i(\theta)^2}^{1/2}$. By a similar argument, we can do the same for the $u$ term in \eqref{eq11}. Combining these together and with the final $ \sum_{i=1}^M\sum_{j=1}^M     c_{ij} a_{ij}(\d, f_\theta(\x^n)) $ term which is independent of $h,u$ proves \eqref{eq:robust-e2e}.
+
+Finally, we prove that $\mathbb{P} \paren{h \in \mathcal{U}_{\Gamma_1}(\bar{h}) \cap u \in \mathcal{U}_{\Gamma_2}(\bar{u})} \geq 1 - \exp\paren{-\Gamma_1/2} - \exp\paren{-\Gamma_2/2}$. From \cite{bertsimas2022robust} (Theorem 3.1) we find $\mathbb{P} \paren{s \not\in \mathcal{U}_{\Gamma}(\bar{s})} \leq \exp\paren{-\Gamma/2}$. Since $h$ and $u$ are independent, $\mathbb{P} \paren{h \in \mathcal{U}_{\Gamma_1}(\bar{h}) \cap u \in \mathcal{U}_{\Gamma_2}(\bar{u})} = 1 - \mathbb{P} \paren{h \not\in \mathcal{U}_{\Gamma_1}(\bar{h})} - \mathbb{P} \paren{u \not\in \mathcal{U}_{\Gamma_2}(\bar{u})}$. The proof follows. 
+
+\end{proof} 
+
+\section{Numerical Experiments}
+
+We first discuss in more detail some existing methods we will use as benchmarks to compare our method against. We then consider a two-warehouse feature-less scenario in which we use the closed-form solutions we developed earlier for fulfillment rules. Then we extend to the multiple warehouse setting, where we observe the near optimal approximation quality of fulfillment rules.  Finally, we consider the setting in which demand is dependent on contextual features and use the end-to-end learning paradigm we discussed and show the benefits in reduced costs over traditional methods. We conclude with experiments in the robust case, where the holding costs and lost-sales costs themselves are uncertain. 
+
+% Optimality in practice for real word networks and demand distributions
+
+% \notePH{Need some introduction here. Data - train and test set. Train not required if you have closed form expressions}
+\subsection{Benchmarks}
+
+% \NotePH{Give paragraph headers for SAA and robust}
+\subsubsection*{Sample Average Approximation (SAA):} In a practical setting, in order to avoid the complexities of the two-stage problem with the expectation over general unknown distributions, it is common to use the SAA approach.
+%where the number of nodes is large and the distribution of demand is hard to characterize. %The only information available is historical demand observations.
+Suppose we are given a forecasting function $\boldsymbol{D}$ and generate $K$ samples from this distribution. Then, we may approximate the expectation minimization problem by solving the following linear optimization problem:
+\begin{equation}
+\label{SAA_method}
+{q}^{SAA}({D}) = \arg \min_{q \geq 0} \frac{1}{K} \sum_{k=1}^{K} Z({D}^k, {q}),
+\end{equation}
+% \notePH{Seems odd that it is all in bold. Maybe we can write it out like that is equation 18. }
+
+SAA is such a widely used approach because of its consistency. That is, using sufficient data will produce nearly-optimal solutions.  However, the number of samples may vary significantly depending on the demand function and the network complexity.
+% \textcolor{red}{Make these sentences a bit more formal - use the term Consistency } 
+
+% \notePH{CVan we add a newsvendor baseline}
+
+\subsubsection*{Classical Newsvendor:} As another baseline, we consider allocating inventory to each warehouse independently of each other, treating each as a separate newsvendor problem. In the case that cross-fulfillment costs are higher than lost-sales costs, this would be optimal, which we will also observe experimentally. However, this is suboptimal in all other cases as it does not take advantage of lowering the overall inventory by considering cross-fulfillment and related pooling effects.
+From \cite{arrow1951optimal}, the optimal allocation quantity $q_i^*$ for a single-item problem is given by 
+\begin{equation}
+\begin{aligned}
+q^*_i &=  F_{D} \Big( \frac{u_i }{ u_i+ h_i  }\Big).\\
+\end{aligned}
+\end{equation} 
+where $F_{D}(p)$ is the $p^{th}$ quantile of distribution $D$ (as also described earlier in \eqref{classic_NV}).
+
+\subsubsection*{Robust approach:}
+% \notePH{Given it is just 2 locations maybe we can introduce it in the next section. Or if we leave it here, mention we will use it for the 2 location network experiment only. In the paper the authors do consider more than 2 locations but they have it in closed form for 2 locations}
+Finally, we use a robust benchmark for the two warehouse case. This is inspired by the method proposed by \cite{govindarajan2019distribution}. Their approach has a closed form solution for the two warehouse case, although can also be applied in the general case. The authors consider a min-max newsvendor-type objective over 2 locations with knowledge of the means $\mu_1,\mu_2$, the standard deviations $\sigma_1,\sigma_2 $ and the correlation $\rho$ of the demand distribution.
+%continue here
+Under symmetric holding, lost sale and fulfillment costs the proposed optimal order quantity of warehouse \textit{i}, $q^{R}_{i}$ is given by (\ref{eq:li_2018}):
+
+\begin{equation}\label{eq:li_2018}
+q^{R}_{i}= \mu_i + \frac{1}{2}(u - h - c_{ii} ) + \sqrt{ \frac{ (u-h - c_{ii}) (\sigma^2_1 + \sigma^2_2  ) + 2(u +h +c_{12}) \rho \sigma_1 \sigma_2}{2h( 2(u+h) - c_{12} - c_{ii} )(u-c_{ii}) }}
+% \begin{cases}
+% 0, & \text{if}\ \frac{h_{i}}{b_{i}+h_{i}} \big{(}1+\frac{\sigma_{i}^2}{\mu_{i}^2} \big{)} \geq 1\\
+% \mu_{i} + \sigma_{i} v(\frac{h_{i}}{b_{i}+h_{i}}), & \qquad \text{otherwise}\,,
+% \end{cases}
+\end{equation}
+
+Notice that $q^{R}_{i}$ minimizes the maximal expected cost over distributions in F with ($\mu_1,\mu_2$,$\sigma_1,\sigma_2,\rho$).
+For more details about the derivation and the properties of $q^{R}_{i}$ we refer the reader to \cite{govindarajan2019distribution}.
+
+% \notePH{You can bring the robust closed form expression here as well}
+
+% \notePH{You can have a section called evaluation here as it is the  same method}
+
+% \notePH{The following lines seem a bit of place as they seem more like conclusions} 
+
+Next, we will discuss the details of two experimental network structures as well as the demand distributions.
+In the first simple network with 2 warehouses, the Fulfillment Rules Algorithm is optimal and will outperform all other approaches. In addition, we will show that it 
+% \notePH{FRA or SAA? I recall the latter}
+will require $1000$ samples for SAA to reach the same level of performance as FRA.
+In the second and more complicated network, we will work with samples from the distribution instead of the distribution function itself. We will show experimentally that the Fulfillment Rules Algorithm converges to the optimal solution with the same number of samples as SAA despite using fulfillment rules that are not optimal for every demand realization.
+% \textcolor{red}{Looks like we are not showing some of these experiments}
+
+
+\subsection{Two warehouse experiments}
+\label{section:two}
+
+
+
+In this section, we will benchmark the fulfillment rules' optimal solution against three other methods, a robust newsvendor approach, the SAA with a different number of samples, and the classical newsvendor that ignores cross fulfillment and optimizes inventory separately.
+
+
+
+For the SAA method, we will solve (\ref{SAA_method}) for the given number of samples $K$, and for the classical newsvendor solution, we will use the quantile derived from the single-item newsvendor solution for each location. 
+
+To evaluate those methods, we first come up with the corresponding inventory levels $q_1,q_2$ and then evaluate them on $K$ demand realizations sampled from the corresponding demand distributions. The average cost of each method is evaluated by solving the following fulfillment optimization problem over the $K$ testing samples with $M=2$.
+
+\begin{equation}
+\label{empirical_cost}
+\begin{aligned}
+\min_{a^k_{ij} \geq 0} \ \
+ &\frac{1}{K}\sum_{k=1}^{K} \bigg[ \sum_{i=1}^{M}  h \big[ q_i - \sum_{j=1}^{M} a_{ij} \big]   +  u \big[ D^k_i - \sum_{j=1}^{M}  a^k_{ij}\big]^+ +  \sum_{j=1}^{M}    c_{ij} a^k_{ij} \bigg]\\
+ & \text{s.t } \sum_{i=1}^{2} a^k_{ij} \leq D^k_j \quad \forall j,k \\
+ & \text{s.t } \sum_{j=1}^{2} a^k_{ij} \leq q_i \quad \forall i,k
+\end{aligned}
+\end{equation}
+
+For every demand realization, problem (\ref{empirical_cost}) finds the optimal fulfillment given the inventory levels. Notice that for two locations, the optimal fulfillment is a cost-based fulfillment rule that prioritizes local fulfillment before cross-shipping. For that reason, as mentioned before, the solution we get from fulfillment rules is optimal in a two-location setting. 
+%\notePH{No reference to figure number and what the experiment does}
+
+Next we will discuss about the details of the $2$ warehouse experiment. First, we assume that the holding cost $h$ for each location is $\$1$ per unsold product and the lost sale cost $u$ is $\$8$. Furthermore, it costs $\$0$ to fulfill local demand ($c_{11}=c_{22}=0$) and we vary the shipping cost across warehouses from $\$0$ to $\$8$.
+For the first location we sample from a Normal distribution with $\mu_1 = 100$ and $\sigma_1 = 16$ and for the second we sample from a Normal with $\mu_2 = 80$ and $\sigma_2 = 12$. In our experiment the demand distribution is uncorrelated across the two locations and thus $\rho=0$. 
+
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.65]{images/Improvement_over_NV_c12_with_joline_SAA_1000.pdf} 
+	\centering
+	\caption{Cost comparison of Fulfillment Rules, Robust cross-fulfillment newsvendor and SAA with 500 samples for a  2 warehouses network as a function of the shipping cost between them. Classical News-vendor without cross fulfillment in red is used as a baseline for the comparison.	}
+	\label{img:2_loc_plot}
+\end{figure}
+
+
+
+
+In the y-axis of figure \ref{img:2_loc_plot}
+we display the average cost improvement $\%$ of each method compared to the classic newsvendor approach while varying the cross-fulfillment cost. 
+We observe that the fulfillment rules outperform all other methods as anticipated since they find the optimal service level and inventory level for the network.
+
+It is interesting to notice the performance of the methods in the two extreme values of the shipping costs between the locations. When the shipping costs go to $0$, then any order can be fulfilled from any location with the same cost. This means that the only decision is the overall inventory level and not how this would be allocated between the two warehouses. Thus the problem simplifies into solving a single location newsvendor problem where the demand is equal to the sum of the two individual demands. 
+Robust NV is performing near optimal at this extreme value since the uncertainty is decreased when predicting the sum of the two individual demands instead of the individual locations. On the other hand, the classical newsvendor solution is too conservative since it does not take advantage of the fact that you can fulfill excess demand with a $0$ cost instead of the much higher lost sale cost, resulting in overstocking inventory in both locations.
+
+In contrast, when the shipping cost between locations exceeds $8$ which is the lost sale cost of $u$, then each location no longer ships to the other since it is more expensive than just losing the sale. This breaks down the problem into two individual newsvendor problems without cross-fulfillment, just like the classical newsvendor setting. This behavior is validated by the fact that the performance of the fulfillment rules is exactly the same as the classical newsvendor for that extreme value. On the other hand, the robust approach underperforms in this setting since it only aims to protect against the worst-case, not in expected cost. 
+
+% \notePH{A line on why Robust does not make the cut}
+
+As far as the SAA is concerned, we observe that even for this simplified network, it requires a large number of samples to converge to the optimal solution. The green line with 500 demand samples for each location is still underperforming compared to the optimal Fulfillment Rules Algorithm. As seen in the cyanide colored line it requires up to $1000$ to reach the same performance level as the fulfillment Rules Algorithm.
+
+
+Next, we will compare the performance of Fulfillment Rules and SAA in a discrete problem where only a given number of samples is available and the underlying distribution is unknown to the Fulfillment Rules Algorithm
+
+% \textcolor{red}{Next section is missing and please modify sentence}
+
+
+\subsection{Multiple warehouses experiment}
+
+
+
+
+
+\paragraph{Network generation:} In order to simulate a real-world network with actual shipping costs we will generate warehouse locations in a two-dimensional grid and generate the shipping costs among them as a function of their distance.
+In particular, let $M$=20 be the number of warehouses in the network. We distribute the locations of those warehouses randomly in a $5$km by $5$km grid by choosing a random pair of coordinates. In order to calculate the shipping costs between each warehouse pair $(i,j)$ we use the following formula: cost(i,j) = fixed-cost + cost-per-km * distance(i,j). For the fixed cost, we used $\$1$ and for the cost per kilometer, we used $\$0.001$ per km. Thus the range of costs vary from $\$1$ up to $\$8$, ensuring that an expensive cross fulfillment is always preferable than a lost sale.
+%notePH{Maybe you can describe the range of the costs}  addressed
+Finally, for each warehouse, we assigned a holding cost of $\$1$ for each unsold item and a lost sale cost of $\$10$ for each unfulfilled demand unit. We chose this difference in costs to simulate real-world scenarios, where the holding costs are significantly lower than the lost sale costs. Finally, notice that for every pair or warehouse in the network, the shipping cost between them is always lower than the lost sale cost. This is to capture that it is preferable to fulfill the demand of one warehouse from another than to lose a sale.
+
+In the first experiment, we sample the demand for each location from a Normal Distribution with a mean of $20$ and a standard deviation of $5$.
+In the second experiment we change the demand distribution to a log-Normal with mean $3$ and standard deviation of $1.5$. The results of those two experiment can be seen in figures \ref{img:Rules_vs_SAA_20_normal} and \ref{img:Rules_vs_SAA_20_log_normal} respectively.
+
+When referring to a sample of the demand distribution, we mean a demand realization of a vector with $M$ values, one for each of the $M$ locations.  
+Using these samples as training, each method comes up with an inventory allocation. To evaluate these allocations we solve the problem \ref{empirical_cost} where $M=20$ and $K=1000$ testing samples.
+For the Classical newsvendor solution, we again solve (\ref{classic_NV}) for the optimal individual quantile for each location, using the empirical discrete distribution from the available samples.
+
+In figure \ref{img:Rules_vs_SAA_20_normal} we compare the performance with respect to the cost of the Fulfillment Rule algorithm with the SAA and Classical newsvendor as we vary the number of samples. 
+In figure \ref{img:Rules_vs_SAA_20_log_normal} we benchmark again against SAA changing the underlying demand distribution to log-Normal.
+To discuss their convergence, we also plot the oracle solution that minimizes the cost over the $1000$ test samples.
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{images/20_Normal_SAA_vs_FR.pdf}
+	\includegraphics[scale=0.85]{images/20_Normal_classic_vs_FR.pdf} 
+	\centering
+	\caption{Cost comparison over different number of Samples over a network with 20 locations where the demand follows a Normal distribution.
+	First plot compares with SAA and the second plot compares with the Classical newsvendor without cross fulfillment. The red line is the optimal solution knowing the demand realization in the test set.}
+	\label{img:Rules_vs_SAA_20_normal}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{images/20_log_Normal_2_1_SAA_vs_FR_best.pdf}
+	\centering
+	\caption{Cost comparison over different number of Samples over a network with 20 locations where the demand follows a log-Normal distribution.}
+	\label{img:Rules_vs_SAA_20_log_normal}
+\end{figure}
+
+Looking at the first figure in \ref{img:Rules_vs_SAA_20_normal}, we first observe that both SAA as well as the Fulfillment Rules perform almost identically. In addition to that, they both converge to the optimal solution after $35$ samples and they remain near-optimal for larger sample sizes.
+
+When we change the distribution to a log-Normal both methods take longer to converge as seen in figure \ref{img:Rules_vs_SAA_20_log_normal}. Fulfillment Rules perform better with a limited number of samples but both become near-optimal when the number of training samples increases.
+
+
+
+
+This shows us that in a discrete sampling scenario the Fulfillment Rules can match the performance of the SAA as well as the two-stage stochastic program despite not being optimal for all demand realizations. As discussed in the previous sections, the scenarios where Fulfillment rules are not optimal are very rare and usually, the difference in cost is very small. Furthermore, the actual fulfillment does not have to follow the order of the rules. They are only used to model the inventory optimization problem and simplify its complexity and thus they perform equally well as SAA converging to the optimal solution.
+
+From the comparison of the Fulfillment Rules Algorithm with the Classical newsvendor in the second figure, we observe that the latter is performing worst as the number of samples is increasing. Since it does not account for cross fulfillment, it tries to find the optimal service level individually for each location. As the number of samples is increasing, it is more likely that an extremely high demand realization will appear in the training set, pushing the inventory lever higher. On the other hand, these events affect the Fulfillment Rules Algorithm way less since with high probability would be able to fulfill this excess demand from other locations approximating the optimal oracle solution as seen in figures \ref{img:Rules_vs_SAA_20_normal} and \ref{img:Rules_vs_SAA_20_log_normal}.
+
+\subsection{End-to-end learning}
+\label{section:end-to-end experiments}
+Now we will suppose the demand distribution is dependent on observed covariate information. In particular, we observe historical data $(X^n, D^n)$, $n = 1, \dots, N$ where $D^n$ is a sample from the demand distribution conditional on observing features $X^n$. 
+We assume the demand distribution for a given $X$ is Gaussian with its mean determined as a linear function of $X$ and fixed variance of $\sigma^2$. Even for such a simple relationship, we are able to illustrate the usefulness of the joint prediction and optimization approach and its ability to achieve the optimal decision. 
+
+In this section we compare the joint prediction-optimization method with a traditional two-stage method. We first use a linear regression model to predict the mean of the distribution. Then, to make a decision, we sample $S$ datapoints from the corresponding predicted distribution and solve the resulting SAA problem to make our decision. This is a common approach, as in for instance \cite{perakis2020leveraging}. To compare fairly, we sampled a sufficient number of instances for the SAA problem to converge.
+
+% \textcolor{red}{Need to specify how you evaluate the decision of each method with their respective decisions }
+
+% In particular, a two-stage method first makes a prediction for the demand distribution independently of the downstream inventory allocation task.
+
+% For this, we learn a linear regression model 
+% % \notePH{Can you add the model in the footnote?} 
+% to predict the mean, and subsequently assume the distribution is gaussian with variance $\sigma^2$, the same as was used for generating the data (this is giving an unfair advantage for the two-stage approach since in general the true form of the distribution is unknown). Afterwards, we sample $S$ demand points from this distribution and solve the SAA problem to make a decision minimizing cost with respect to the $S$ demand realizations.
+% \notePH{What is S? Is there an impact of finite data, we see on the results? So, can we say double S and run the experiment and document that as well?}
+% \notePH{K was defined earlier as the testing samples and was equal to 1000. Is it the same?}
+
+\subsubsection*{Two Warehouses} First, we again consider the setting of only two warehouses, for which fulfillment rules is optimal. We vary the ratio between the holding cost and lost-sales cost and show the average decision cost incurred by both approaches in Table~\ref{tab:optimal-comparison}.
+% \textcolor{red}{Do you do the evaluation by solving SAA?}
+% \notePH{How many locations in this problem?}
+First, note that the prediction of the mean does not change across any of these scenarios when using the two-stage approach. For lower ratios of lost-sales to holding cost, errors in predicting the mean have a smaller impact and the two-stage method performs slightly better. 
+% \textcolor{red}{are you solving SAA and if so why is this easier?} 
+As the ratio increases and the lost-sales cost is larger, any errors that predict the mean to be lower than actuality will result in higher cost. Therefore, as this ratio increases we see that the joint predict-optimize model outperforms a traditional two-stage method. 
+ % \notePH{Why are we under-performing early on?}
+
+% \notePH{End to end is also using FRA while SAA is solving the original problem and yet it performs poorly. So, the benefit of FRA also is that one can solve the original problem in an end-to-end data driven fashion easily. }
+
+% Given that we know how the demand data is generated, we may compute the optimal decision as follows: for large enough $K$, sample $K$ points from the demand distribution given sample $X$ and make the optimal decision according to SAA. Moreover, it was proven in \cite{projectnet!} that a joint prediction and optimization approach can indeed produce optimal decision. We empirically support this for the inventory allocation problem.
+
+\begin{table}
+    \centering
+    \renewcommand{\arraystretch}{0.5}
+    \begin{tabular}{c c c c} \toprule
+        lost-sales/Holding Cost Ratio & Two-Stage & Task-based Model Cost & \% improvement \\ \midrule
+        1 & 0.131 & 0.140 & -6.4 \% \\ 
+        5 & 0.282 & 0.285 &  -1.0\% \\
+        8 & 0.377 & 0.331 &  13.8\% \\
+        10 & 0.443 & 0.371 & 19.4\% \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Cost of task-based model trained by jointly predicting and optimization compared to the two-stage.}
+    \label{tab:optimal-comparison}
+\end{table}
+
+
+\subsubsection*{Multiple warehouses}
+
+In the case of two warehouses, the fulfillment rule policy is optimal: a warehouse always fulfils as much of its own demand as possible, then fulfils remaining demand of the other if needed and if one has left-over inventory. For multiple warehouses, a greedy strategy like fulfillment rules will not provide the optimal fulfillment strategy, as seen in section  \ref{sec:fulfilment-rules}. However, as we saw in earlier experiments, fulfilment rules do result in nearly optimal decisions. Here, we use the methodology in conjunction with end-to-end learning when the demand distribution is an uncertain function of features. 
+
+For the experiments, there are $M$ warehouses and we observe historical data $(X^n, D^n), n = 1, \dots, N$ where $X^n$ is some feature/contextual information for each data point, and $D^n$ is the corresponding demand realization observed. Note that $D^n$ is an $M$-dimensional vector, representing the demand of each warehouse. As in the two-warehouse end-to-end experiment, the demand is generated in the same fashion as a function of features. The cost of cross-fulfillment between two warehouses is generated at random (as described next). Fulfilling a warehouse's own demand has no 
+% \notePH{something is missing?} 
+cost while the unit cross-shipment cost of fulfilling demand at warehouse $i$ from warehouse $j$ is a fixed number chosen uniformly at random between $0$ and $1$ for each pair $(i,j)$. 
+
+
+We evaluate average decision cost on test data as well as worst-case cost on the test data. Again, the two-stage method predicts the mean and a decision is made by SAA using sufficient samples from the corresponding distribution.  See Table~\ref{tab:e2e-multiple} for results.
+% \textcolor{red}{can you be more specific average decision cost}
+Across any number of warehouses, the average cost is slightly better for the end-to-end approach. This is primarily because this performs better in the worst cases. We see that especially as the number of warehouses increases, the end-to-end method is better at reducing the maximum cost incurred since it explicitly targets the objective while training while the two-stage does not. Indeed, it is 20\% for the end-to-end approach. For this experiment, we use a ratio of 10 of lost-sales to holding cost. Note that in the 2 warehouse example in the previous section, at same ratio we found the task-based model has a 19.4\% improvement in cost. Hence, we see the same level of improvement even for more warehouse locations.
+
+
+% \notePH{What is b and h here? We know the ratio plays a role as discuss in the prior experiment. So, do we know what fraction of the 20\% is because of this ratio? Can we do an experiment for another ratio and add it here? Is ti worthwhile?} 
+% \notePH{Can you switch the order in the table with end-to-end coming after two-stage, similar to prior table}
+
+% \notePH{Say something about the mean cost} \notePH{Can you also discuss run times and if K is the across settings for both train and test}
+
+\begin{table}
+% \renewcommand{\arraystretch}{0.5}
+    \centering
+    \begin{tabular}{c c c c c c}
+\# Warehouses & \multicolumn{2}{c}{Two-Stage} & \multicolumn{2}{c}{Task-based Model} & \makecell{\% improvement \\ in Max Cost} \\ \toprule
+& Mean Cost & Max Cost & Mean Cost & Max Cost & \\ \midrule
+5 & 1.42 & 63.05 & 1.48 & 60.82 & 4.7\% \\
+10 & 1.84 & 89.58 & 1.72 & 68.98 & 23\%\\
+20 & 2.96 & 99.46 & 2.93 & 81.72 & 18\% \\
+        \bottomrule
+    \end{tabular}
+    \caption{Comparison of end-to-end with a two-stage approach. Using a fixed lost-sales/holding cost ratio of 10 and varying the number of warehouses.}
+    \label{tab:e2e-multiple}
+\end{table}
+
+Training time for the end-to-end approach is higher than the two-stage since the learning task is considerably more complex, taking into account both forecasting and optimization. However, this is a cost paid only at the beginning when first training. Afterwards, on testing or real-world application, the end-to-end method prescribes decisions by simply evaluating the forward pass of a neural network. On the other hand, the two-stage method requires, for every out-of-sample data point, solving a large optimization problem taking significantly longer.
+
+% \paragraph{Varying sample size $S$}
+
+% Finally, we 
+
+\subsubsection*{Robust Experiments}
+
+
+We now consider the case that the holding and lost-sales costs are uncertain and can vary from their nominal values. In particular, we fix nominal values of $h$ and $b$ and at evaluation on testing data, these values are perturbed at random as follows: the new $\tilde{h}$ and $\tilde{b}$ are generated randomly as 
+\begin{equation}
+    \tilde{h}_i = \max\{1, h_i + \frac{1}{2} \rho \cdot \delta_i\},  \quad \tilde{b}_j = \max\{1, b_j + \frac{1}{2} \rho \cdot \delta_j\}
+\end{equation}
+with $\delta_i,\delta_j$ corresponding to numbers uniform in the interval $[-1,1]$ and $\rho$ a scaling factor for the noise which we vary for the following experiments.  
+
+We train one model using the joint predict and optimize method as in the previous section and we compare with a robust model as described in section~\ref{sec:robust}. We evaluate each model on data with random instances of holding and lost-sales costs $\tilde{h}, \tilde{b}$ and compare the distribution of total costs incurred for various scaling factors $\rho$. 
+
+% In Figure~\ref{fig:fulfillment-robust-distribution} we see the distribution of costs for the initial task-based model and for the robust task-based end-to-end model. We see that for both lower and higher levels of noise $(\rho = 1, 5)$ the robust model has less variance in its costs. Crucially, its worst-case costs are significantly lower as well.
+
+As an illustration, in Figure~\ref{fig:fulfillment-robust-distribution} we order all costs for both models in increasing order and then compute the ratio between costs at each quantile. For example, the worst-case cost ($1.0$ quantile), we see the robust model performing up to 15\% better than the purely end-to-end method. As the scale $\rho$ of the noise increases, the robust model shows greater gains. With $\rho= 5$, the robust model outperforms the end-to-end method in the worst 30\% of instances. 
+% \notePH{Can we tie it to the previous section by say that our results are consistent even when there is uncertainty in $b$ and $h$ and maybe use a similar line in the last part of the conclusions and the abstract}
+% \notePH{Can you describe what it means to be less than 1 in this plot? Also, if $\rho = 0 $ will it give the ratio of 1. Why is it when $rho = 1$, the ratio is below 1. Let us discuss this plot in our next meeting.}
+% \notePH{I do not follow this plot.}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[scale=0.5]{images/robust-rho.png}
+    \caption{Comparison of cost distributions resulting from the task-based method and the robust task-based model.}
+    \label{fig:fulfillment-robust-distribution}
+\end{figure}
+
+
+\newpage
+\section{Conclusions}
+
+Fulfillment flexibility is very important for retailers since it allows them to reduce fulfillment costs without increasing inventory levels. However, optimizing inventory in a cross-fulfillment network is generally intractable. 
+
+In this work, we present a Multi-warehouse Newsvendor Problem with Cross-Fulfillment. We introduce the concept of Fulfillment Rules, an interpretable policy that works for general networks capturing the retailer's objectives and constraints in fulfillment. In addition, it simplifies the two-stage formulation allowing for a tractable inventory solution as a set of equations. Furthermore, we develop an algorithm for this set of equations that converges to the solution of the system under any demand distribution. We study the performance of the algorithm in two different settings, first, in a two-location setting to derive intuition about the structure of the optimal solution, and second, in a larger warehouse network. We prove that our algorithm is provably optimal for the first setting, outperforming all the other benchmarks and that for larger general networks it empirically converges to the optimal solution.
+
+Moreover, we incorporate the fulfillment rule methodology into the end-to-end learning setting. Here, the demand distribution changes as a function of contextual information. We present an end-to-end method which learns to make decisions minimizing the overall cost. Compared to traditional methods of separately forecasting demand and then determining the optimal inventory allocation, the end-to-end method outperforms at higher ratios of lost-sales to holding cost by up to 20\%. Furthermore, our fulfilment-rule-based end-to-end approach is computationally efficient and does not require any specialized optimization solvers. 
+
+Finally, we develop a robust method so that the same end-to-end model can be used for a variety of different problem parameters. We consider this setting when there is uncertainty in the values of the holding and lost-sales costs themselves and develop an extension to the end-to-end method to be robust and minimize maximum cost instead of expected cost.
+
+
+%%REFERENCES%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This template complies references using bibtex. You will need to use pomsref.bst file for biblography style.
+%REFERENCES USING BIBTEX FILES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage 
+\bibliographystyle{pomsref}
+
+ \let\oldbibliography\thebibliography
+ \renewcommand{\thebibliography}[1]{%
+    \oldbibliography{#1}%
+    \baselineskip14pt %Change this for line spacing within the same reference
+    \setlength{\itemsep}{10pt}% %Change this for spacing between two referneces
+ }
+\bibliography{bibfile}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Hayes, R. H., G. P. Pisano. 1996. Manufacturing strategy: At the intersection of two paradigm shifts. Production and Operations Management, 5 (1), 25-41.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %If you don't use BiBTex, you can manually itemize references as shown in the referneces for the electronic comapanion. See below.
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+% %% Here starts the e-companion (EC). Place your appendix content here.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \ECSwitch % Comment this line out if you do not need e-companion.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% %%% Main head for the e-companion
+% \ECHead{E-Companion for POM Journal Template}
+
+% \noindent A general heading for the whole e-companion should be provided here as in the example above this paragraph.
+
+% \section{Proof of Theorem \ref{thm:A1}}
+
+% To avoid confusion, theorems that we repeat for readers' convenience
+% will have the same appearance as when they were mentioned for the first
+% time. However, here they should be coded by \verb+repeattheorem+ instead
+% of \verb+theorem+ to keep labels/pointers uniquely resolvable. Other predefined theorem-like
+% environments work similarly if they need to be repeated in what becomes the \mbox{e-companion.}
+
+
+% \begin{repeattheorem}[Theorem 1.]
+%     In a reverse dictionary,  $(\alpha \succ x_{ij} \land\ Y^k_{ij} \succ \beta)$
+%     Moreover, continuous reading of a compact subset of the dictionary  attains the minimum of patience at the moment of giving up.
+% \end{repeattheorem}
+
+% \subsection{Preparatory Material}
+
+% \begin{lemma}
+%     \label{aux-lem1}
+%     In a reverse dictionary, $\mbox{\bi g}\succ\mbox{\bi t\/}$.
+% \end{lemma}
+
+% \begin{lemma}
+%     \label{aux-lem2}
+%     In a reverse dictionary, $\mbox{\bi e}\succ\mbox{\bi r\/}$.
+% \end{lemma}
+
+% \proof{Proof of Lemmas \ref{aux-lem1} and \ref{aux-lem2}.} See the alphabet and the tebahpla.\Halmos
+% \endproof
+
+% \begin{remark}
+%     Note that the title of the proof should be keyed
+%     explicitly in each case. Authors can hardly agree on what would be the
+%     default proof title, so there is no default. Even \verb+\proof{Proof.}+ should be keyed out.
+% \end{remark}
+
+
+% \subsection{Proof of the Main Result}
+
+% \proof{Proof of Theorem 1.} The first statement is a consequence of
+% Lemmas~\ref{aux-lem1} and \ref{aux-lem2}. The rest relies on the fact that the continuous
+% image of a compact set into the reals is a closed interval, thus having
+% a minimum point. \Halmos  
+% \endproof
+
+
+% However, just because we didn't produce any results, doesn't mean
+% that there isn't good butter re-search going on out there.  Many
+% researchers
+% %%%(e.g., Tholstrup et al. 2006, Hodson et al. 2001)
+% (e.g., \citealt{Doe2014}, \citealt{Doe2009}). You can use this reference style as well \citep[e.g.][]{Doe2014,Doe2009}.
+
+
+
+
+% %If you don't use BiBTex, you can manually itemize references as shown below.
+
+% \begin{thebibliography}{}
+
+
+%     \bibitem[{Doe et~al.(2006)}]{Doe2014}
+%     Doe, F., J. Smith, G. Toledano, R. Richard. 2006.
+%     Title of the article here. {\it Journal of Science,} 89 (5), 882--887.
+
+%         \bibitem[{Smith et~al.(2016)}]{Doe2009}
+% Smith, A., J. Roe, R. Doe.  2016.
+%     Another article title. {\it Another Journal Name,} 9 (1), 85--87.
+
+% \end{thebibliography}
+
+
+% % Use this for adding Appendix
+% % Options are (1) APPENDIX (with or without general title) or
+% %             (2) APPENDICES (if it has more than one unrelated sections)
+% % Outcomment the appropriate case if necessary
+% %
+% % \begin{APPENDIX}{<Title of the Appendix>}
+% % \end{APPENDIX}
+% %
+% %   or
+% %
+% % \begin{APPENDICES}
+% % \section{<Title of Section A>}
+% % \section{<Title of Section B>}
+% % etc
+% % \end{APPENDICES}
+
+
+%%%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%%%
