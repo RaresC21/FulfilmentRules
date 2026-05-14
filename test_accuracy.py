@@ -11,6 +11,9 @@ d(cost_rules)/d(q) is non-zero, confirming end-to-end differentiability.
 """
 
 import time
+import json
+import os
+from pathlib import Path
 
 import numpy as np
 import torch
@@ -99,7 +102,7 @@ _HEADER = _ROW.format(
     "<=1%", "<=5%",
     "t_rules", "t_opt",
 )
-_SEP = "  " + "─" * (len(_HEADER) - 2)
+_SEP = "  " + "-" * (len(_HEADER) - 2)
 
 
 def _print_row(r: dict) -> None:
@@ -121,16 +124,35 @@ if __name__ == "__main__":
     torch.manual_seed(0)
     np.random.seed(0)
 
+    # Create results directory
+    results_dir = Path("results")
+    results_dir.mkdir(exist_ok=True)
+
     ok = check_differentiable()
     print(f"Differentiability check: {'PASS' if ok else 'FAIL'}")
 
-    N_SAMPLES = 500
-    for M in [2 ** i for i in range(1, 6)]:
-        probs = [1 / i for i in range(1, M)]
+    N_SAMPLES = 20
+    all_results = []
+
+    for M in np.arange(5, 100, 5):
+        probs = np.arange(0.05, 1, 0.05)
         print(f"\nM = {M}  ({M**2} possible edges,  N = {N_SAMPLES} samples)")
         print(_HEADER)
         print(_SEP)
         for prob in probs:
             r = run_comparison(M, edge_prob=prob, n_samples=N_SAMPLES)
+            all_results.append(r)
             _print_row(r)
+
+    # Save results to JSON (convert numpy types to native Python types)
+    results_file = results_dir / "test_results.json"
+    json_results = []
+    for r in all_results:
+        json_results.append({
+            k: float(v) if isinstance(v, (np.floating, np.integer)) else v
+            for k, v in r.items()
+        })
+    with open(results_file, "w") as f:
+        json.dump(json_results, f, indent=2)
+    print(f"\n[OK] Results saved to {results_file}")
     
