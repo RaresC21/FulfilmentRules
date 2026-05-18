@@ -22,6 +22,8 @@ Output
 import sys
 import json
 import time
+import argparse
+import concurrent.futures
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parents[2]))   # project root  (graph, fulfillment)
@@ -126,6 +128,29 @@ def aggregate_trials(trials: list[dict]) -> dict:
     }
 
 
+# ── Config-level worker (module-level so ProcessPoolExecutor can pickle it) ──
+
+def run_config(M: int, bf: float, n_train: int, trial_seeds: list) -> dict:
+    graph = WarehouseGraph(M, edge_prob=0.2, seed=SEED)
+    budget = bf * M * MEAN_DEMAND
+
+    trials: list[dict] = []
+    t_config_start = time.perf_counter()
+    for train_seed, test_seed in trial_seeds:
+        trial = run_trial(graph, budget, n_train, train_seed, test_seed)
+        trials.append(trial)
+
+    agg = aggregate_trials(trials)
+    return {
+        "M": M, "budget_factor": bf, "budget": budget,
+        "N_train": n_train, "N_test": N_TEST, "T": T_TRIALS,
+        "n_edges": graph.n_edges,
+        "trials": trials,
+        "agg": agg,
+        "t_config": time.perf_counter() - t_config_start,
+    }
+
+
 # ── Formatting ───────────────────────────────────────────────────────────────
 
 _HDR = (
@@ -165,65 +190,73 @@ def _fmt_row(M: int, n_train: int, bf: float, agg: dict) -> str:
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Run stochastic inventory allocation experiments.")
+    parser.add_argument(
+        "--workers", type=int, default=1, metavar="N",
+        help="Number of parallel worker processes (default: 1 = sequential).",
+    )
+    args = parser.parse_args()
+
     master_rng = np.random.RandomState(SEED)
 
     RESULTS_DIR.mkdir(exist_ok=True)
 
-    all_configs: list[dict] = []
-    lines: list[str] = [_HDR, _HDR2, _SEP]
-
-    total_configs = len(M_VALUES) * len(BUDGET_FACTORS) * len(N_TRAIN_VALUES)
-    done = 0
-
+    # Pre-generate all configs and their seeds so the RNG state is reproducible
+    # regardless of execution order when running in parallel.
+    config_specs: list[tuple] = []  # (M, bf, n_train, trial_seeds)
     for M in M_VALUES:
-        graph = WarehouseGraph(M, edge_prob=0.2, seed=SEED)
-        print(f"\n{'='*70}\nM = {M}  ({graph.n_edges} edges,  N_TEST={N_TEST}  T={T_TRIALS})")
-        print(_HDR)
-        print(_HDR2)
-        print(_SEP)
-
         for bf in BUDGET_FACTORS:
-            budget = bf * M * MEAN_DEMAND
-
             for n_train in N_TRAIN_VALUES:
-                # Draw train/test seeds for each trial upfront (reproducible)
                 trial_seeds = [
                     (int(master_rng.randint(0, 1_000_000)),
                      int(master_rng.randint(0, 1_000_000)))
                     for _ in range(T_TRIALS)
                 ]
+                config_specs.append((M, bf, n_train, trial_seeds))
 
-                trials: list[dict] = []
-                t_config_start = time.perf_counter()
+    total_configs = len(config_specs)
+    all_configs: list[dict] = [None] * total_configs  # filled in original order
 
-                for t, (train_seed, test_seed) in enumerate(trial_seeds):
-                    print(f"  trial {t+1}/{T_TRIALS}  M={M} N_tr={n_train} Q={bf:.1f}uM ...", end=" ", flush=True)
-                    t0 = time.perf_counter()
-                    trial = run_trial(graph, budget, n_train, train_seed, test_seed)
-                    trials.append(trial)
-                    print(f"{time.perf_counter()-t0:.1f}s", flush=True)
+    print(f"Running {total_configs} configs  (workers={args.workers}  T={T_TRIALS}  N_TEST={N_TEST})")
+    print(_HDR); print(_HDR2); print(_SEP)
 
-                agg = aggregate_trials(trials)
-                t_config = time.perf_counter() - t_config_start
+    t_all_start = time.perf_counter()
 
-                config_result = {
-                    "M": M, "budget_factor": bf, "budget": budget,
-                    "N_train": n_train, "N_test": N_TEST, "T": T_TRIALS,
-                    "n_edges": graph.n_edges,
-                    "trials": trials,
-                    "agg": agg,
-                }
-                all_configs.append(config_result)
+    if args.workers <= 1:
+        for idx, (M, bf, n_train, trial_seeds) in enumerate(config_specs):
+            print(f"  [{idx+1}/{total_configs}] M={M} bf={bf:.2f} N_tr={n_train} ...", end=" ", flush=True)
+            t0 = time.perf_counter()
+            result = run_config(M, bf, n_train, trial_seeds)
+            all_configs[idx] = result
+            row_line = _fmt_row(M, n_train, bf, result["agg"])
+            print(f"{time.perf_counter()-t0:.1f}s  {row_line}", flush=True)
+    else:
+        futures: dict = {}
+        with concurrent.futures.ProcessPoolExecutor(max_workers=args.workers) as pool:
+            for idx, (M, bf, n_train, trial_seeds) in enumerate(config_specs):
+                fut = pool.submit(run_config, M, bf, n_train, trial_seeds)
+                futures[fut] = idx
 
-                row_line = _fmt_row(M, n_train, bf, agg)
-                print(row_line)
-                lines.append(row_line)
-
+            done = 0
+            for fut in concurrent.futures.as_completed(futures):
+                idx = futures[fut]
+                M, bf, n_train, _ = config_specs[idx]
+                result = fut.result()   # re-raises any worker exception
+                all_configs[idx] = result
                 done += 1
+                row_line = _fmt_row(M, n_train, bf, result["agg"])
                 print(
-                    f"  [{done}/{total_configs}] config done in {t_config:.1f}s",
+                    f"  [{done}/{total_configs}] M={M} bf={bf:.2f} N_tr={n_train}"
+                    f"  {result['t_config']:.1f}s  {row_line}",
                     flush=True,
                 )
+
+    print(f"\nTotal wall time: {time.perf_counter()-t_all_start:.1f}s")
+
+    # Build summary lines in original config order
+    lines: list[str] = [_HDR, _HDR2, _SEP]
+    for cfg in all_configs:
+        lines.append(_fmt_row(cfg["M"], cfg["N_train"], cfg["budget_factor"], cfg["agg"]))
 
     # ── Save ─────────────────────────────────────────────────────────────────
     def _to_serializable(obj):
