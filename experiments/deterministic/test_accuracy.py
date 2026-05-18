@@ -10,16 +10,20 @@ Also verifies that the PyTorch graph is intact by checking that
 d(cost_rules)/d(q) is non-zero, confirming end-to-end differentiability.
 """
 
+import sys
 import time
 import json
-import os
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parents[2]))
 
 import numpy as np
 import torch
 
 from graph import DemandSampler, WarehouseGraph
 from fulfillment import fulfillment_rules_cost, optimal_fulfillment_cost
+
+RESULTS_DIR = Path(__file__).parent / "results"
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -124,9 +128,7 @@ if __name__ == "__main__":
     torch.manual_seed(0)
     np.random.seed(0)
 
-    # Create results directory
-    results_dir = Path("results")
-    results_dir.mkdir(exist_ok=True)
+    RESULTS_DIR.mkdir(exist_ok=True)
 
     ok = check_differentiable()
     print(f"Differentiability check: {'PASS' if ok else 'FAIL'}")
@@ -145,7 +147,7 @@ if __name__ == "__main__":
             _print_row(r)
 
     # Save results to JSON (convert numpy types to native Python types)
-    results_file = results_dir / "test_results.json"
+    results_file = RESULTS_DIR / "test_results.json"
     json_results = []
     for r in all_results:
         json_results.append({
@@ -155,4 +157,3 @@ if __name__ == "__main__":
     with open(results_file, "w") as f:
         json.dump(json_results, f, indent=2)
     print(f"\n[OK] Results saved to {results_file}")
-    
